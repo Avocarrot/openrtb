@@ -1,0 +1,35 @@
+{
+  "name": "openrtb-objects",
+  "version": "0.0.1",
+  "description": "A Javascript library which builds and validates OpenRTB objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Avocarrot/openrtb-objects"
+  },
+  "keywords": [
+    "openrtb",
+    "real",
+    "time",
+    "bidding",
+    "advertising"
+  ],
+  "author": "The Avocarrot Rockstar Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Avocarrot/openrtb-objects/issues"
+  },
+  "homepage": "https://github.com/Avocarrot/openrtb-objects",
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "moment": "^2.10.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4",
+    "should": "^6.0.1",
+    "timekeeper": "0.0.5"
+  }
+}
