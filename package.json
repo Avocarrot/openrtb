@@ -1,5 +1,5 @@
 {
-  "name": "openrtb-objects",
+  "name": "openrtb",
   "version": "0.0.1",
   "description": "A Javascript library which builds and validates OpenRTB objects",
   "main": "index.js",

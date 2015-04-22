@@ -4,7 +4,7 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 
 ## Installation
 
-```npm install openrtb-objects```
+```npm install openrtb```
 
 ## Features
 
