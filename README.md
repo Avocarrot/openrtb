@@ -5,10 +5,10 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 ## Features
 
 - Construct OpenRTB objects
+- Convert objects from native Javascript structures to JSON strings
 - Validate OpenRTB objects
-- Convert objects from native to JSON format
 
-## Usage
+## Basic Usage
 
 ### Construct a bid request
 ```javascript
@@ -54,7 +54,9 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 		}
 	})
 	.user({
-	  "id":"55816b39711f9b5acf3b90e313ed29e51665623f"
+		"id":"55816b39711f9b5acf3b90e313ed29e51665623f",
+		"yob": 1987,
+		"gender": "M"
 	})
 	.ext({
 		'extra': '1234'
@@ -64,6 +66,87 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 		//Do something with the object
 	});
 ```
+
+### Construct a bid response
+```javascript
+	var builder = new BidResponseBuilder();
+	builder
+	.timestamp(moment.utc().format())
+	.status(1)
+	.bidderName('test-bidder')
+	.seatbid([ 
+		{ 
+		  bid: [ 
+		    { 
+				adid: 1,
+				status: 1,
+				clearPrice: 0.9,
+				id: '819582c3-96b2-401a-b60d-7ac3c117a513',
+				impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
+				price: 1.05,
+				nurl: 'http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}',
+				adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
+				cid: '9607',
+				crid: '335224',
+				adomain: ["example.com"]
+		  	}
+		  ]
+		} 
+	])
+	.build()
+	.then(function(bidResponse){
+		//Do something with the object
+	});
+```
+
+#### Additional fields in bid responses and bids
+
+Bid responses have an extra field in addition to the normal RTB objects. They can have a status. The table below lists the possible values for a bid response status.
+
+| Status  | Description  |
+|---|---|
+| 1  | Valid  |
+| 2  | Timeout |
+| 3  | Invalid JSON |
+| 4  | HTTP Error  |
+
+Bids have two extra fields in addition to the normal RTB objects. They can have a status and a clear price. These are helpful when keeping records of bid responses and trying to debug issues. The table below lists the possible values for a bid status.
+
+| Status  | Description  |
+|---|---|
+| 1  | Won  |
+| 2  | Lost on Price |
+| 3  | Below floor  |
+| 4  | Markup Delivery Failure  |
+| 5  | Unscreenable  |
+| 6  | Blocked by publisher  |
+| 7  | Unverified creative  |
+| 8  | Blocked advertiser  |
+| 9  | Blocked content category  |
+| 10  | Block creative attribute |
+
+## Supported objects
+
+### OpenRTB API Specification Version 2.3
+
+- BidRequest
+	- Imp
+	- App
+	    - Publisher
+	- Device
+	- User
+     
+- BidResponse
+    - SeatBid
+        - Bid 
+
+### OpenRTB API Specification Version 2.2
+
+Not supported but most objects for v2.3 should work for this one too.
+
+## Disclaimer
+
+This project is a work in progress. It was created for the specific purposes of the [Avocarrot Native Ad Exchange (AVX)](http://www.avocarrot.com/avx/) and some fields might be missing. If you want specific fields to be added then please either get in touch or [submit your own pull request](#contributing).
 
 ## Contributing
 

@@ -24,7 +24,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .timestamp(moment.utc().format())
       .requestId('1234')
       .auctionType(2)
-      .impressions([
+      .imp([
           {
               "id":"1",
               "native":{
@@ -40,7 +40,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
           "cat":["IAB3-1"],
           "storeurl": "http://www.example.com",
           "publisher":{  
-              "id": "6332"
+              "id": "6332",
+              "name": 'publisher 1'
           }
       })
       .device({
@@ -61,7 +62,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
         }
       })
       .user({
-          "id":"55816b39711f9b5acf3b90e313ed29e51665623f"
+          "id":"55816b39711f9b5acf3b90e313ed29e51665623f",
+          "yob": 1987,
+          "gender": "M",
       })
       .ext({
         'extra': '1234'
@@ -73,8 +76,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidRequest.should.have.property('auctionType', 2);
 
         //Check imp object
-        bidRequest.impressions.length.should.equal(1);
-        bidRequest.impressions[0].should.have.properties({
+        bidRequest.imp.length.should.equal(1);
+        bidRequest.imp[0].should.have.properties({
           id: '1',
           bidfloor: 1.3,
           tagid: 'eb09ff2a287598302fd631493949169b0d17f815' 
@@ -85,11 +88,11 @@ describe("OpenRTB 2.3 unit test suite", function() {
           cat: [ 'IAB3-1' ],
           id: '55',
           name: 'Test App',
-          publisher: { 
-            id: '6332' 
-          },
           storeurl: 'http://www.example.com'
         });
+
+        //Check publisher object
+        bidRequest.app.publisher.should.have.properties({ id: '6332', name: 'publisher 1' });
 
         //Check device object
         bidRequest.device.should.have.properties({
@@ -111,7 +114,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
         //Check user object
         bidRequest.user.should.have.properties({
-          id: '55816b39711f9b5acf3b90e313ed29e51665623f'
+          id: '55816b39711f9b5acf3b90e313ed29e51665623f',
+          gender: 'M',
+          yob: 1987
         });
 
         //Check ext object
@@ -159,6 +164,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
         { 
           bid: [ 
             { 
+              status: 1, 
+              clearPrice: 0.9,
               adid: 1,
               id: '819582c3-96b2-401a-b60d-7ac3c117a513',
               impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
@@ -182,13 +189,13 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidResponse.should.have.property('seatbid');
         bidResponse.seatbid.length.should.equal(1);
         var bid = bidResponse.seatbid[0].bid[0];
-        // bid.status.should.equal(1);
+        bid.status.should.equal(1);
         bid.crid.should.equal('335224');
         bid.cid.should.equal('9607');
         bid.id.should.equal('819582c3-96b2-401a-b60d-7ac3c117a513');
         bid.impid.should.equal('e317ae49-8cd1-47b0-b022-02a8830182ce');
         bid.price.should.equal(1.05);
-        // bid.clearPrice.should.equal(0.5);
+        bid.clearPrice.should.equal(0.9);
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
         done();
