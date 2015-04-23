@@ -11,5 +11,5 @@ deploy:
   email: "giorgosera@gmail.com"
   api_key: "Z2lvcmdvc2VyYTpHSU9pbXAxOTAz"
   on:
-	branch: master
+    branch: master
     tags: true
