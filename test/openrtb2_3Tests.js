@@ -23,7 +23,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       var builder = new BidRequestBuilder();
       builder
       .timestamp(moment.utc().format())
-      .requestId('1234')
+      .id('1234')
       .auctionType(2)
       .imp([
           {
@@ -104,7 +104,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .build()
       .then(function(bidRequest){
         bidRequest.should.have.property('timestamp', "2015-01-14T00:00:00+00:00");
-        bidRequest.should.have.property('requestId', "1234");
+        bidRequest.should.have.property('id', "1234");
         bidRequest.should.have.property('auctionType', 2);
 
         //Check imp object
@@ -185,13 +185,13 @@ describe("OpenRTB 2.3 unit test suite", function() {
       });
     });
 
-    it("throw an error if a requestId was not provided", function(done) {
+    it("throw an error if a id was not provided", function(done) {
       var builder = new BidRequestBuilder();
       builder
       .timestamp(moment.utc().format())
       .build()
       .catch(function(err){
-        err.message.should.equal('BidRequest should have a requestId');
+        err.message.should.equal('BidRequest should have an id');
         done();
       });
     });

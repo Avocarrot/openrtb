@@ -42,7 +42,7 @@ Not supported but most objects for v2.3 should work for this one too.
     var builder = new BidRequestBuilder();
 	builder
 	.timestamp(moment.utc().format())
-	.requestId('1234')
+	.id('1234')
 	.auctionType(2)
 	.impressions([
 	  {
