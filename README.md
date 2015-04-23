@@ -1,6 +1,6 @@
 # OpenRTB Objects
 
-A Javascript library which builds and validates OpenRTB objects. This project was inspired by the good people at [Metamarkets](https://metamarkets.com/) who build a [similar library for Java](https://github.com/metamx/rad-tech-datatypes). 
+A Node.js library which builds, validates and processes OpenRTB objects. This project was inspired by the good people at [Metamarkets](https://metamarkets.com/) who build a [similar library for Java](https://github.com/metamx/rad-tech-datatypes). 
 
 ## Installation
 
@@ -24,9 +24,17 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 	.impressions([
 	  {
 	      "id":"1",
-	      "native":{
-	          "request": "{\"ver\":1,\"layout\":6,\"assets\":[{\"id\":0,\"req\":1,\"title\":{\"len\":25}},{\"id\":1,\"req\":1,\"img\":{\"type\":3,\"wmin\":300,\"hmin\":250}},{\"id\":2,\"req\":1,\"img\":{\"type\":1,\"wmin\":50,\"hmin\":50}},{\"id\":3,\"req\":1,\"data\":{\"type\":2,\"len\":90}},{\"id\":4,\"req\":0,\"data\":{\"type\":3}},{\"id\":5,\"req\":0,\"data\":{\"type\":12,\"len\":15}}]}"
-	      },
+          "native":{
+            "request": {
+              "ver": 1,
+              "layout": 6,
+              "assets": [
+                { "id": 0, "req": 1, "title": { "len": 25 } }, 
+                { "id": 1, "req": 1, "img": { "type": 3, "wmin": 100, "hmin": 100 } },
+                { "id": 3, "req": 0, "data": { "type": 2, "len": 90 } }
+              ]
+            }
+          },
 	      "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
 	      "bidfloor": 1.3
 	  }
@@ -78,9 +86,9 @@ A Javascript library which builds and validates OpenRTB objects. This project wa
 	.timestamp(moment.utc().format())
 	.status(1)
 	.bidderName('test-bidder')
-	.seatbid([ 
-		{ 
-		  bid: [ 
+	.seatbid([
+		{
+		  bid: [
 		    { 
 				adid: 1,
 				status: 1,
@@ -135,6 +143,7 @@ Bids have two extra fields in addition to the normal RTB objects. They can have 
 
 - BidRequest
 	- Imp
+	    - Native
 	- App
 	    - Publisher
 	- Device
