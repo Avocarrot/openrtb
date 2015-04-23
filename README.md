@@ -17,9 +17,9 @@ A Node.js library which builds, validates and processes OpenRTB objects. This pr
 
 The library exposes object builders which are used to construct new objects. 
 
-### Supported objects builders
+**Supported objects builders**
 
-#### OpenRTB API Specification Version 2.3
+**OpenRTB API Specification Version 2.3**
 
 - BidRequest
 	- Imp
@@ -33,7 +33,7 @@ The library exposes object builders which are used to construct new objects.
     - SeatBid
         - Bid 
 
-#### OpenRTB API Specification Version 2.2
+**OpenRTB API Specification Version 2.2**
 
 Not supported but most objects for v2.3 should work for this one too.
 
