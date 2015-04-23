@@ -1,8 +1,9 @@
 var moment = require('moment'),
     should = require('should'),
     tk = require('timekeeper'),
-    BidRequestBuilder = require('../lib/openrtb2_3/bidRequest'),
-    BidResponseBuilder = require('../lib/openrtb2_3/bidResponse');
+    BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder,
+    BidBuilder = require('../lib/openrtb2_3/bid').builder,
+    BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
 
 describe("OpenRTB 2.3 unit test suite", function() {
 
@@ -205,26 +206,28 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .timestamp(moment.utc().format())
       .status(1)
       .bidderName('test-bidder')
-      .seatbid([ 
-        { 
-          bid: [ 
-            { 
-              status: 1, 
+      .seatbid([
+        {
+          bid: [
+            {
+              status: 1,
               clearPrice: 0.9,
               adid: 1,
               id: '819582c3-96b2-401a-b60d-7ac3c117a513',
               impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
               price: 1.05,
               nurl: 'http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}',
-              adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
+              adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
               cid: '9607',
               crid: '335224',
               adomain: ["example.com"] 
           } 
           ]
-        } 
+        }
       ])
-      .build()
+      .then(function(){
+        return builder.build();
+      })
       .then(function(bidResponse){
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
@@ -235,6 +238,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidResponse.seatbid.length.should.equal(1);
         var bid = bidResponse.seatbid[0].bid[0];
         bid.status.should.equal(1);
+        bid.nurl.should.equal('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}');
+        bid.adm.should.equal('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}');
         bid.crid.should.equal('335224');
         bid.cid.should.equal('9607');
         bid.id.should.equal('819582c3-96b2-401a-b60d-7ac3c117a513');
@@ -266,6 +271,48 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .catch(function(err){
         err.message.should.equal('BidResponse should have a status');
         done();
+      });
+    });
+
+  });
+
+  describe("The Bid object should", function() {
+    var bidBuilder;
+    beforeEach(function(){
+      bidBuilder = new BidBuilder();
+      //Add basic bid info
+      bidBuilder
+      .status(1)
+      .id('1234')
+      .price(1.15)
+      .impid('6789');
+    });
+
+    it("replace macros in adm and nurl", function(done) {
+      bidBuilder
+      .clearPrice(0.9)
+      .nurl('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}')
+      .adm('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}')
+      .build()
+      .then(function(bid){
+        return bid.replaceMacros();
+      }).then(function(bid){
+        bid.nurl.should.equal('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=0.9')
+        bid.adm.should.equal('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=0.9&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}')
+        done();        
+      });
+    });
+
+    it("throw an error if we try to replace macros without a clearPrice", function(done) {
+      bidBuilder
+      .nurl('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}')
+      .adm('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}')
+      .build()
+      .then(function(bid){
+        return bid.replaceMacros();
+      }).catch(function(err){
+        err.message.should.equal('Cannot replace macros without a clear price');
+        done();        
       });
     });
 
