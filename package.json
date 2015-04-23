@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Avocarrot/openrtb-objects"
+    "url": "https://github.com/Avocarrot/openrtb"
   },
   "keywords": [
     "openrtb",
@@ -20,9 +20,9 @@
   "author": "The Avocarrot Rockstar Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Avocarrot/openrtb-objects/issues"
+    "url": "https://github.com/Avocarrot/openrtb/issues"
   },
-  "homepage": "https://github.com/Avocarrot/openrtb-objects",
+  "homepage": "https://github.com/Avocarrot/openrtb",
   "dependencies": {
     "bluebird": "^2.9.24",
     "moment": "^2.10.2"

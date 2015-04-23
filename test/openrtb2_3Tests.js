@@ -28,7 +28,36 @@ describe("OpenRTB 2.3 unit test suite", function() {
           {
               "id":"1",
               "native":{
-                  "request": "{\"ver\":1,\"layout\":6,\"assets\":[{\"id\":0,\"req\":1,\"title\":{\"len\":25}},{\"id\":1,\"req\":1,\"img\":{\"type\":3,\"wmin\":300,\"hmin\":250}},{\"id\":2,\"req\":1,\"img\":{\"type\":1,\"wmin\":50,\"hmin\":50}},{\"id\":3,\"req\":1,\"data\":{\"type\":2,\"len\":90}},{\"id\":4,\"req\":0,\"data\":{\"type\":3}},{\"id\":5,\"req\":0,\"data\":{\"type\":12,\"len\":15}}]}"
+                "request": {
+                  "ver": 1,
+                  "layout": 6,
+                  "assets": [
+                    {
+                      "id": 0,
+                      "req": 1,
+                      "title": {
+                        "len": 25
+                      }
+                    }, 
+                    { 
+                      "id": 1, 
+                      "req": 1, 
+                      "img": { 
+                        "type": 3, 
+                        "wmin": 100, 
+                        "hmin": 100
+                      } 
+                    },
+                    {
+                      "id": 3, 
+                      "req": 0, 
+                      "data": { 
+                        "type": 2,
+                        "len": 90
+                      }                       
+                    }
+                  ]
+                }
               },
               "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
               "bidfloor": 1.3
@@ -80,7 +109,19 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidRequest.imp[0].should.have.properties({
           id: '1',
           bidfloor: 1.3,
-          tagid: 'eb09ff2a287598302fd631493949169b0d17f815' 
+          tagid: 'eb09ff2a287598302fd631493949169b0d17f815'
+        });
+
+        //Check imp.native object
+        var native = bidRequest.imp[0].native;
+        native.should.have.property('request', {
+          assets: [
+            { id: 0, req: 1, title: { len: 25 } },
+            { id: 1, img: { hmin: 100, type: 3, wmin: 100 }, req: 1 },
+            { data: { len: 90, type: 2 }, id: 3, req: 0 }
+          ],
+          layout: 6,
+          ver: 1
         });
 
         //Check app object
@@ -91,7 +132,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
           storeurl: 'http://www.example.com'
         });
 
-        //Check publisher object
+        //Check app.publisher object
         bidRequest.app.publisher.should.have.properties({ id: '6332', name: 'publisher 1' });
 
         //Check device object
