@@ -28,6 +28,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
           {
               "id":"1",
               "native":{
+                "api": [ 3 ], 
+                "battr": [ 13, 14 ],
                 "request": {
                   "ver": 1,
                   "layout": 6,
@@ -114,6 +116,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
         //Check imp.native object
         var native = bidRequest.imp[0].native;
+        native.should.have.property('api', [3]);
+        native.should.have.property('battr', [13,14]);
         native.should.have.property('request', {
           assets: [
             { id: 0, req: 1, title: { len: 25 } },
