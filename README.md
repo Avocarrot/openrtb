@@ -11,8 +11,31 @@ A Node.js library which builds, validates and processes OpenRTB objects. This pr
 - Construct OpenRTB objects
 - Convert objects from native Javascript structures to JSON strings
 - Validate OpenRTB objects
+- Process bid objects
 
-## Basic Usage
+## Constructing objects
+
+The library exposes object builders which are used to construct new objects. 
+
+### Supported objects builders
+
+#### OpenRTB API Specification Version 2.3
+
+- BidRequest
+	- Imp
+	    - Native
+	- App
+	    - Publisher
+	- Device
+	- User
+     
+- BidResponse
+    - SeatBid
+        - Bid 
+
+#### OpenRTB API Specification Version 2.2
+
+Not supported but most objects for v2.3 should work for this one too.
 
 ### Construct a bid request
 ```javascript
@@ -139,25 +162,31 @@ Bids have two extra fields in addition to the normal RTB objects. They can have 
 | 9  | Blocked content category  |
 | 10  | Block creative attribute |
 
-## Supported objects
+## Validating objects
 
-### OpenRTB API Specification Version 2.3
+All builders will throw an error when trying to build an object that is missing a required parameter.
 
-- BidRequest
-	- Imp
-	    - Native
-	- App
-	    - Publisher
-	- Device
-	- User
-     
-- BidResponse
-    - SeatBid
-        - Bid 
+```javascript
+	var builder = new BidRequestBuilder();
 
-### OpenRTB API Specification Version 2.2
+	//Trying to build a bid request without a request id
+	builder
+    .timestamp(moment.utc().format())
+	.build()
+	.catch(function(err){
+		//The following statement will print 'BidRequest should have a requestId'
+		console.log(err.message);
+	});
+```
 
-Not supported but most objects for v2.3 should work for this one too.
+## Processing objects
+
+Some created objects are exposing functions which can be used to process them.
+
+### Bid
+
+- **.replaceMacros()**: Replaces auction macros for a bid. 
+
 
 ## Disclaimer
 

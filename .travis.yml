@@ -10,3 +10,4 @@ deploy:
   api_key: "Z2lvcmdvc2VyYTpHSU9pbXAxOTAz"
   on:
     branch: master
+    tags: true
