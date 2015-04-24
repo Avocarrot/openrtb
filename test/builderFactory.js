@@ -19,7 +19,7 @@ describe("The BuilderFactory should", function() {
   it("construct and return a bid request builder", function() {
     var builder = builderFactory.getBuilder({
       builderType: 'bidRequest'
-    });
+    });    
     builder.should.be.an.instanceOf(BidRequestBuilder);
   });
 

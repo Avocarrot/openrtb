@@ -1,6 +1,8 @@
 var moment = require('moment'),
     should = require('should'),
     tk = require('timekeeper'),
+    RtbObject = require('../lib/rtbObject'),
+    Bid = require('../lib/openrtb2_3/bidRequest').object,
     BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder,
     BidBuilder = require('../lib/openrtb2_3/bid').builder,
     BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
@@ -19,12 +21,12 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
   describe("The BidRequestBuilder should", function() {
 
-    it("build a valid bid request object", function(done) {
+    it.only("build a valid bid request object", function(done) {
       var builder = new BidRequestBuilder();
       builder
       .timestamp(moment.utc().format())
       .id('1234')
-      .auctionType(2)
+      .at(2)
       .imp([
           {
               "id":"1",
@@ -105,7 +107,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .then(function(bidRequest){
         bidRequest.should.have.property('timestamp', "2015-01-14T00:00:00+00:00");
         bidRequest.should.have.property('id', "1234");
-        bidRequest.should.have.property('auctionType', 2);
+        bidRequest.should.have.property('at', 2);
 
         //Check imp object
         bidRequest.imp.length.should.equal(1);
@@ -145,6 +147,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
           carrier: 'o2',
           connectiontype: 2,
           didsha1: 'bbc9ff2a287598302fd631693949169b0d17f215',
+          ua: 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
           dnt: 0,
           ip: '76.174.49.222',
           geo: {
@@ -286,6 +289,10 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .id('1234')
       .price(1.15)
       .impid('6789');
+    });
+
+    it.only("inherit its prototype from RtbObject", function() {
+      console.log(Bid.prototype.isPrototypeOf(RtbObject.prototype));
     });
 
     it("replace macros in adm and nurl", function(done) {

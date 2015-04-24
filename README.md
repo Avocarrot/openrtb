@@ -43,8 +43,8 @@ Not supported but most objects for v2.3 should work for this one too.
 	builder
 	.timestamp(moment.utc().format())
 	.id('1234')
-	.auctionType(2)
-	.impressions([
+	.at(2)
+	.imp([
 	  {
 	      "id":"1",
           "native":{
@@ -181,12 +181,15 @@ All builders will throw an error when trying to build an object that is missing 
 
 ## Processing objects
 
-Some created objects are exposing functions which can be used to process them.
+All objects inherit common functionality from a base RtbObject and also define some functionality of their own. See below for the documentation. 
+
+### RtbObject
+
+- **.toJSON()**: Converts the object to a JSON string. Properties that are undefined are not included.
 
 ### Bid
 
 - **.replaceMacros()**: Replaces auction macros for a bid. 
-
 
 ## Disclaimer
 
