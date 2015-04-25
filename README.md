@@ -130,9 +130,7 @@ Not supported but most objects for v2.3 should work for this one too.
 			]
 		}
 	])
-	.then(function(){
-  		return builder.build();
-	})
+	.build()
 	.then(function(bidResponse){
 		//Do something with the object
 	});
