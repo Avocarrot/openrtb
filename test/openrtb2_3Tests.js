@@ -239,9 +239,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
           ]
         }
       ])
-      .then(function(){
-        return builder.build();
-      })
+      .build()
       .then(function(bidResponse){
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
