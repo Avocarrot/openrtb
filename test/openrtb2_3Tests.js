@@ -168,7 +168,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
           model: 'Android',
           os: 'Android',
           osv: '5.1.1',
-          type: 1
+          devicetype: 1
         });
 
         //Check user object
