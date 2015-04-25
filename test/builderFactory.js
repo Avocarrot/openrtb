@@ -6,6 +6,7 @@ var BuilderFactory = require('../lib/builderFactory'),
     DeviceBuilder = require('../lib/openrtb2_3/device').builder,
     ImpBuilder = require('../lib/openrtb2_3/imp').builder,
     NativeBuilder = require('../lib/openrtb2_3/native').builder,    
+    BannerBuilder = require('../lib/openrtb2_3/banner').builder,    
     PublisherBuilder = require('../lib/openrtb2_3/publisher').builder,
     UserBuilder = require('../lib/openrtb2_3/user').builder,
     BidBuilder = require('../lib/openrtb2_3/bid').builder;
@@ -84,6 +85,13 @@ describe("The BuilderFactory should", function() {
       builderType: 'native'
     });
     builder.should.be.an.instanceOf(NativeBuilder);
+  });
+
+  it("construct and return a banner builder", function() {
+    var builder = builderFactory.getBuilder({
+      builderType: 'banner'
+    });
+    builder.should.be.an.instanceOf(BannerBuilder);
   });
 
 });

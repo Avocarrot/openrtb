@@ -8,6 +8,7 @@ var moment = require('moment'),
     Device = require('../lib/openrtb2_3/device').object,
     Imp = require('../lib/openrtb2_3/imp').object,
     Native = require('../lib/openrtb2_3/native').object,
+    Banner = require('../lib/openrtb2_3/banner').object,
     Publisher = require('../lib/openrtb2_3/publisher').object,
     Seatbid = require('../lib/openrtb2_3/seatbid').object,
     User = require('../lib/openrtb2_3/user').object,
@@ -376,6 +377,13 @@ describe("OpenRTB 2.3 unit test suite", function() {
     it("be an instance of RtbObject", function() {
       var native = new Native();
       native.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Banner object should", function() {
+    it("be an instance of RtbObject", function() {
+      var banner = new Banner();
+      banner.should.be.an.instanceof(RtbObject);      
     });
   });
 

@@ -24,6 +24,7 @@ The library exposes object builders which are used to construct new objects.
 - BidRequest
 	- Imp
 	    - Native
+	    - Banner
 	- App
 	    - Publisher
 	- Device
