@@ -2,7 +2,16 @@ var moment = require('moment'),
     should = require('should'),
     tk = require('timekeeper'),
     RtbObject = require('../lib/rtbObject'),
-    Bid = require('../lib/openrtb2_3/bidRequest').object,
+    Bid = require('../lib/openrtb2_3/bid').object,
+    BidRequest = require('../lib/openrtb2_3/bidRequest').object,
+    BidResponse = require('../lib/openrtb2_3/bidResponse').object,
+    Device = require('../lib/openrtb2_3/device').object,
+    Imp = require('../lib/openrtb2_3/imp').object,
+    Native = require('../lib/openrtb2_3/native').object,
+    Publisher = require('../lib/openrtb2_3/publisher').object,
+    Seatbid = require('../lib/openrtb2_3/seatbid').object,
+    User = require('../lib/openrtb2_3/user').object,
+    App = require('../lib/openrtb2_3/app').object,
     BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder,
     BidBuilder = require('../lib/openrtb2_3/bid').builder,
     BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
@@ -21,7 +30,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
   describe("The BidRequestBuilder should", function() {
 
-    it.only("build a valid bid request object", function(done) {
+    it("build a valid bid request object", function(done) {
       var builder = new BidRequestBuilder();
       builder
       .timestamp(moment.utc().format())
@@ -223,6 +232,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
               adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
               cid: '9607',
               crid: '335224',
+              iurl: 'http://cdn.testimage.net/1200x627.png',
               adomain: ["example.com"] 
           } 
           ]
@@ -251,6 +261,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.clearPrice.should.equal(0.9);
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
+        bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
         done();
       });
     });
@@ -291,8 +302,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .impid('6789');
     });
 
-    it.only("inherit its prototype from RtbObject", function() {
-      console.log(Bid.prototype.isPrototypeOf(RtbObject.prototype));
+    it("be an instance of RtbObject", function() {
+      var bid = new Bid();
+      bid.should.be.an.instanceof(RtbObject);
     });
 
     it("replace macros in adm and nurl", function(done) {
@@ -323,6 +335,69 @@ describe("OpenRTB 2.3 unit test suite", function() {
       });
     });
 
+  });
+
+  describe("The App object should", function() {
+    it("be an instance of RtbObject", function() {
+      var app = new App();
+      app.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The BidRequest object should", function() {
+    it("be an instance of RtbObject", function() {
+      var bidRequest = new BidRequest();
+      bidRequest.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The BidResponse object should", function() {
+    it("be an instance of RtbObject", function() {
+      var bidResponse = new BidResponse();
+      bidResponse.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Device object should", function() {
+    it("be an instance of RtbObject", function() {
+      var device = new Device();
+      device.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Imp object should", function() {
+    it("be an instance of RtbObject", function() {
+      var imp = new Imp();
+      imp.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Native object should", function() {
+    it("be an instance of RtbObject", function() {
+      var native = new Native();
+      native.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Publisher object should", function() {
+    it("be an instance of RtbObject", function() {
+      var publisher = new Publisher();
+      publisher.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The Seatbid object should", function() {
+    it("be an instance of RtbObject", function() {
+      var seatbid = new Seatbid();
+      seatbid.should.be.an.instanceof(RtbObject);      
+    });
+  });
+
+  describe("The User object should", function() {
+    it("be an instance of RtbObject", function() {
+      var user = new User();
+      user.should.be.an.instanceof(RtbObject);      
+    });
   });
 
 });
