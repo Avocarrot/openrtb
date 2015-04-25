@@ -24,6 +24,7 @@ The library exposes object builders which are used to construct new objects.
 - BidRequest
 	- Imp
 	    - Native
+	    - Banner
 	- App
 	    - Publisher
 	- Device
@@ -43,8 +44,8 @@ Not supported but most objects for v2.3 should work for this one too.
 	builder
 	.timestamp(moment.utc().format())
 	.id('1234')
-	.auctionType(2)
-	.impressions([
+	.at(2)
+	.imp([
 	  {
 	      "id":"1",
           "native":{
@@ -123,6 +124,7 @@ Not supported but most objects for v2.3 should work for this one too.
 				  adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
 				  cid: '9607',
 				  crid: '335224',
+				  iurl: 'http://cdn.testimage.net/1200x627.png',
 				  adomain: ["example.com"] 
 				} 
 			]
@@ -181,12 +183,15 @@ All builders will throw an error when trying to build an object that is missing 
 
 ## Processing objects
 
-Some created objects are exposing functions which can be used to process them.
+All objects inherit common functionality from a base RtbObject and also define some functionality of their own. See below for the documentation. 
+
+### RtbObject
+
+- **.stringify()**: Converts the object to a JSON string. Properties that are undefined are not included.
 
 ### Bid
 
 - **.replaceMacros()**: Replaces auction macros for a bid. 
-
 
 ## Disclaimer
 
