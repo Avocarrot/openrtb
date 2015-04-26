@@ -1,6 +1,7 @@
 var moment = require('moment'),
     should = require('should'),
     tk = require('timekeeper'),
+    mockResponse = require('./mocks/mockResponse'),
     RtbObject = require('../lib/rtbObject'),
     Bid = require('../lib/openrtb2_3/bid').object,
     BidRequest = require('../lib/openrtb2_3/bidRequest').object,
@@ -219,26 +220,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .timestamp(moment.utc().format())
       .status(1)
       .bidderName('test-bidder')
-      .seatbid([
-        {
-          bid: [
-            {
-              status: 1,
-              clearPrice: 0.9,
-              adid: 1,
-              id: '819582c3-96b2-401a-b60d-7ac3c117a513',
-              impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
-              price: 1.05,
-              nurl: 'http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}',
-              adm: '{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}',
-              cid: '9607',
-              crid: '335224',
-              iurl: 'http://cdn.testimage.net/1200x627.png',
-              adomain: ["example.com"] 
-          } 
-          ]
-        }
-      ])
+      .seatbid(mockResponse.seatbid)
       .build()
       .then(function(bidResponse){
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
@@ -249,7 +231,6 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidResponse.should.have.property('seatbid');
         bidResponse.seatbid.length.should.equal(1);
         var bid = bidResponse.seatbid[0].bid[0];
-        bid.status.should.equal(1);
         bid.nurl.should.equal('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}');
         bid.adm.should.equal('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}');
         bid.crid.should.equal('335224');
@@ -257,7 +238,6 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.id.should.equal('819582c3-96b2-401a-b60d-7ac3c117a513');
         bid.impid.should.equal('e317ae49-8cd1-47b0-b022-02a8830182ce');
         bid.price.should.equal(1.05);
-        bid.clearPrice.should.equal(0.9);
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
         bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
@@ -351,10 +331,56 @@ describe("OpenRTB 2.3 unit test suite", function() {
   });
 
   describe("The BidResponse object should", function() {
+    var bidResponse;
+    before(function(done){
+      var bidResponseBuilder = new BidResponseBuilder();
+      bidResponseBuilder    
+      .status(1)
+      .timestamp(moment.utc().format())
+      .bidderName('test')
+      .seatbid(mockResponse.seatbid)
+      .build()
+      .then(function(bidRes){
+        bidResponse = bidRes;
+        done();
+      });
+    });
+
     it("be an instance of RtbObject", function() {
-      var bidResponse = new BidResponse();
       bidResponse.should.be.an.instanceof(RtbObject);      
     });
+
+    it("set the status of a nested bid", function(done) {
+      var bid = bidResponse.seatbid[0].bid[0];
+      bidResponse.setBidStatus(bid.id, 3).then(function(){
+        bid.status.should.equal(3);
+        done();
+      });
+    });
+
+    it("set the clear price of a nested bid", function(done) {
+      var bid = bidResponse.seatbid[0].bid[0];
+      bidResponse.setBidClearPrice(bid.id, 0.9).then(function(){
+        bid.clearPrice.should.equal(0.9);
+        done();
+      });
+    });
+
+    it("get a nested bid", function(done) {
+      var bid = bidResponse.seatbid[0].bid[0];
+      bidResponse.getBid(bid.id).then(function(returnedBid){
+        returnedBid.should.equal(bid);
+        done();
+      });
+    });
+
+    it("throw an error if we try to get a non existing bid", function(done) {
+      bidResponse.getBid('wrong-id').catch(function(err){
+        err.message.should.equal('Bid with id wrong-id was not found');
+        done();
+      });
+    });
+
   });
 
   describe("The Device object should", function() {

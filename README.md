@@ -1,5 +1,9 @@
 # OpenRTB Objects
 
+[![NPM](https://nodei.co/npm/openrtb.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/openrtb/)
+
+
+## Purpose
 A Node.js library which builds, validates and processes OpenRTB objects. This project was inspired by the good people at [Metamarkets](https://metamarkets.com/) who build a [similar library for Java](https://github.com/metamx/rad-tech-datatypes). 
 
 ## Installation
@@ -186,6 +190,12 @@ All objects inherit common functionality from a base RtbObject and also define s
 ### RtbObject
 
 - **.stringify()**: Converts the object to a JSON string. Properties that are undefined are not included.
+
+### BidResponse
+
+- **.getBid(id)**: Returns a nested bid with the associated id. Throws an error if the bid doesn't exist. 
+- **.setBidStatus(id, status)**: Sets the status of a nested bid with the associated id. Throws an error if the bid doesn't exist.
+- **.setBidClearPrice()**: Sets the clear price of a nested bid with the associated id. Throws an error if the bid doesn't exist.
 
 ### Bid
 
