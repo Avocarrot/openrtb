@@ -140,32 +140,6 @@ Not supported but most objects for v2.3 should work for this one too.
 	});
 ```
 
-#### Additional fields in bid responses and bids
-
-Bid responses have two extra field in addition to the normal RTB objects. They can have a status and a bidder name. The table below lists the possible values for a bid response status.
-
-| Status  | Description  |
-|---|---|
-| 1  | Valid  |
-| 2  | Timeout |
-| 3  | Invalid JSON |
-| 4  | HTTP Error  |
-
-Bids have two extra fields in addition to the normal RTB objects. They can have a status and a clear price. These are helpful when keeping records of bid responses and trying to debug issues. The table below lists the possible values for a bid status.
-
-| Status  | Description  |
-|---|---|
-| 1  | Won  |
-| 2  | Lost on Price |
-| 3  | Below floor  |
-| 4  | Markup Delivery Failure  |
-| 5  | Unscreenable  |
-| 6  | Blocked by publisher  |
-| 7  | Unverified creative  |
-| 8  | Blocked advertiser  |
-| 9  | Blocked content category  |
-| 10  | Block creative attribute |
-
 ## Validating objects
 
 All builders will throw an error when trying to build an object that is missing a required parameter.
@@ -183,7 +157,7 @@ All builders will throw an error when trying to build an object that is missing 
 	});
 ```
 
-## Processing objects
+## Objects API
 
 All objects inherit common functionality from a base RtbObject and also define some functionality of their own. See below for the documentation. 
 
@@ -191,14 +165,53 @@ All objects inherit common functionality from a base RtbObject and also define s
 
 - **.stringify()**: Converts the object to a JSON string. Properties that are undefined are not included.
 
+### BidRequest
+
+**Additional Properties**
+
+- **timestamp**: The timestamp of the bid request. If not provided explicitly at build time the default will be the current UTC when the object is created.
+
 ### BidResponse
 
+**Additional Properties**
+
+- **status**: The table below lists the possible values for a bid response status.
+- **bidderName**: The bidder's name used for reporting and debugging.
+- **timestamp**: The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
+
+| Status  | Description  |
+|---|---|
+| 1  | Valid  |
+| 2  | Timeout |
+| 3  | Invalid JSON |
+| 4  | HTTP Error  |
+
+**Functions**
 - **.getBid(id)**: Returns a nested bid with the associated id. Throws an error if the bid doesn't exist. 
 - **.setBidStatus(id, status)**: Sets the status of a nested bid with the associated id. Throws an error if the bid doesn't exist.
 - **.setBidClearPrice()**: Sets the clear price of a nested bid with the associated id. Throws an error if the bid doesn't exist.
 
 ### Bid
 
+**Additional Properties**
+
+- **status**: The table below lists the possible values for a bid status.
+- **clearPrice**: The bid clearing price determined after an auction.
+
+| Status  | Description  |
+|---|---|
+| 1  | Won  |
+| 2  | Lost on Price |
+| 3  | Below floor  |
+| 4  | Markup Delivery Failure  |
+| 5  | Unscreenable  |
+| 6  | Blocked by publisher  |
+| 7  | Unverified creative  |
+| 8  | Blocked advertiser  |
+| 9  | Blocked content category  |
+| 10  | Block creative attribute |
+
+**Functions**
 - **.replaceMacros()**: Replaces auction macros for a bid. 
 
 ## Disclaimer
