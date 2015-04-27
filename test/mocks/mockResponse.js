@@ -12,7 +12,10 @@ module.exports = {
               cid: '9607',
               crid: '335224',
               iurl: 'http://cdn.testimage.net/1200x627.png',
-              adomain: ["example.com"] 
+              adomain: ["example.com"],
+              parseAdm: function() {
+                return 'parseAdm was called';
+              }
           	} 
           ]
         }

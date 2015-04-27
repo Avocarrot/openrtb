@@ -230,6 +230,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
         bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
+        bid.parseAdm().should.equal('parseAdm was called');
         done();
       });
     });
@@ -309,56 +310,10 @@ describe("OpenRTB 2.3 unit test suite", function() {
   });
 
   describe("The BidResponse object should", function() {
-    var bidResponse;
-    before(function(done){
-      var bidResponseBuilder = new BidResponseBuilder();
-      bidResponseBuilder    
-      .status(1)
-      .timestamp(moment.utc().format())
-      .bidderName('test')
-      .seatbid(mockResponse.seatbid)
-      .build()
-      .then(function(bidRes){
-        bidResponse = bidRes;
-        done();
-      });
-    });
-
     it("be an instance of RtbObject", function() {
+      var bidResponse = new BidResponse();
       bidResponse.should.be.an.instanceof(RtbObject);      
     });
-
-    it("set the status of a nested bid", function(done) {
-      var bid = bidResponse.seatbid[0].bid[0];
-      bidResponse.setBidStatus(bid.id, 3).then(function(){
-        bid.status.should.equal(3);
-        done();
-      });
-    });
-
-    it("set the clear price of a nested bid", function(done) {
-      var bid = bidResponse.seatbid[0].bid[0];
-      bidResponse.setBidClearPrice(bid.id, 0.9).then(function(){
-        bid.clearPrice.should.equal(0.9);
-        done();
-      });
-    });
-
-    it("get a nested bid", function(done) {
-      var bid = bidResponse.seatbid[0].bid[0];
-      bidResponse.getBid(bid.id).then(function(returnedBid){
-        returnedBid.should.equal(bid);
-        done();
-      });
-    });
-
-    it("throw an error if we try to get a non existing bid", function(done) {
-      bidResponse.getBid('wrong-id').catch(function(err){
-        err.message.should.equal('Bid with id wrong-id was not found');
-        done();
-      });
-    });
-
   });
 
   describe("The Device object should", function() {

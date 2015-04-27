@@ -186,17 +186,13 @@ All objects inherit common functionality from a base RtbObject and also define s
 | 3  | Invalid JSON |
 | 4  | HTTP Error  |
 
-**Functions**
-- **.getBid(id)**: Returns a nested bid with the associated id. Throws an error if the bid doesn't exist. 
-- **.setBidStatus(id, status)**: Sets the status of a nested bid with the associated id. Throws an error if the bid doesn't exist.
-- **.setBidClearPrice()**: Sets the clear price of a nested bid with the associated id. Throws an error if the bid doesn't exist.
-
 ### Bid
 
 **Additional Properties**
 
 - **status**: The table below lists the possible values for a bid status.
 - **clearPrice**: The bid clearing price determined after an auction.
+- **parseAdm**: A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
 
 | Status  | Description  |
 |---|---|
@@ -212,7 +208,7 @@ All objects inherit common functionality from a base RtbObject and also define s
 | 10  | Block creative attribute |
 
 **Functions**
-- **.replaceMacros()**: Replaces auction macros for a bid. 
+- **.replaceMacros()**: Replaces auction macros for a bid.
 
 ## Disclaimer
 
