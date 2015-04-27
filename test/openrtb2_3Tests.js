@@ -188,17 +188,6 @@ describe("OpenRTB 2.3 unit test suite", function() {
       });
     });
 
-    it("throw an error if a timestamp was not provided", function(done) {
-      var builder = new BidRequestBuilder();
-      builder
-      .timestamp()
-      .build()
-      .catch(function(err){
-        err.message.should.equal('BidRequest should have a timestamp');
-        done();
-      });
-    });
-
     it("throw an error if a id was not provided", function(done) {
       var builder = new BidRequestBuilder();
       builder
@@ -241,17 +230,6 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
         bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
-        done();
-      });
-    });
-
-    it("throw an error if a timestamp was not provided", function(done) {
-      var builder = new BidResponseBuilder();
-      builder
-      .timestamp()
-      .build()
-      .catch(function(err){
-        err.message.should.equal('BidResponse should have a timestamp');
         done();
       });
     });
