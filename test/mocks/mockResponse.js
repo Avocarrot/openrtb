@@ -13,8 +13,8 @@ module.exports = {
               crid: '335224',
               iurl: 'http://cdn.testimage.net/1200x627.png',
               adomain: ["example.com"],
-              parseAdm: function() {
-                return 'parseAdm was called';
+              parseAdm: function(adm) {
+                return adm;
               }
           	} 
           ]
