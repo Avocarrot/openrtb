@@ -172,7 +172,7 @@ Converts the object to a JSON string. Properties that are undefined are not incl
 
 **Additional Properties**
 
-##### - `timestamp` 
+##### `timestamp` 
 
 The timestamp of the bid request. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
@@ -183,13 +183,6 @@ The timestamp of the bid request. If not provided explicitly at build time the d
 ##### `status`
 
 The table below lists the possible values for a bid response status.
-##### `bidderName`
-
-The bidder's name used for reporting and debugging.
-
-##### `timestamp`
-
-The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
 | Status  | Description  |
 |---|---|
@@ -198,6 +191,15 @@ The timestamp of bid response. If not provided explicitly at build time the defa
 | 3  | Invalid JSON |
 | 4  | HTTP Error  |
 
+##### `bidderName`
+
+The bidder's name used for reporting and debugging.
+
+##### `timestamp`
+
+The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
+
+
 ### Bid
 
 **Additional Properties**
@@ -205,14 +207,6 @@ The timestamp of bid response. If not provided explicitly at build time the defa
 ##### `status`
 
 The table below lists the possible values for a bid status.
-
-##### `clearPrice`
-
-The bid clearing price determined after an auction.
-
-##### `parseAdm`
-
-A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
 
 | Status  | Description  |
 |---|---|
@@ -226,6 +220,14 @@ A function which parses the bid's adm. If not provided explicitly the default im
 | 8  | Blocked advertiser  |
 | 9  | Blocked content category  |
 | 10  | Block creative attribute |
+
+##### `clearPrice`
+
+The bid clearing price determined after an auction.
+
+##### `parseAdm`
+
+A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
 
 **Functions**
 
