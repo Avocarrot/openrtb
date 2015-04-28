@@ -6,16 +6,17 @@
 ## Purpose
 A Node.js library which builds, validates and processes OpenRTB objects. This project was inspired by the good people at [Metamarkets](https://metamarkets.com/) who build a [similar library for Java](https://github.com/metamx/rad-tech-datatypes). 
 
+# Contents
+
+- [Installation](#installation)
+- [Constructing objects](#constructing-objects)
+- [Validating objects](#validating-objects)
+- [Objects API](#objects-api)
+- [Contributing](#contributing)
+
 ## Installation
 
 ```npm install openrtb```
-
-## Features
-
-- Construct OpenRTB objects
-- Convert objects from native Javascript structures to JSON strings
-- Validate OpenRTB objects
-- Process bid objects
 
 ## Constructing objects
 
@@ -163,21 +164,32 @@ All objects inherit common functionality from a base RtbObject and also define s
 
 ### RtbObject
 
-- **.stringify()**: Converts the object to a JSON string. Properties that are undefined are not included.
+##### `.stringify()` 
+
+Converts the object to a JSON string. Properties that are undefined are not included.
 
 ### BidRequest
 
 **Additional Properties**
 
-- **timestamp**: The timestamp of the bid request. If not provided explicitly at build time the default will be the current UTC when the object is created.
+##### - `timestamp` 
+
+The timestamp of the bid request. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
 ### BidResponse
 
 **Additional Properties**
 
-- **status**: The table below lists the possible values for a bid response status.
-- **bidderName**: The bidder's name used for reporting and debugging.
-- **timestamp**: The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
+##### `status`
+
+The table below lists the possible values for a bid response status.
+##### `bidderName`
+
+The bidder's name used for reporting and debugging.
+
+##### `timestamp`
+
+The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
 | Status  | Description  |
 |---|---|
@@ -190,9 +202,17 @@ All objects inherit common functionality from a base RtbObject and also define s
 
 **Additional Properties**
 
-- **status**: The table below lists the possible values for a bid status.
-- **clearPrice**: The bid clearing price determined after an auction.
-- **parseAdm**: A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
+##### `status`
+
+The table below lists the possible values for a bid status.
+
+##### `clearPrice`
+
+The bid clearing price determined after an auction.
+
+##### `parseAdm`
+
+A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
 
 | Status  | Description  |
 |---|---|
@@ -208,11 +228,14 @@ All objects inherit common functionality from a base RtbObject and also define s
 | 10  | Block creative attribute |
 
 **Functions**
-- **.replaceMacros()**: Replaces auction macros for a bid.
+
+##### `replaceMacros()` 
+
+Replaces auction macros for a bid.
 
 ## Disclaimer
 
-This project is a work in progress. It was created for the specific purposes of the [Avocarrot Native Ad Exchange (AVX)](http://www.avocarrot.com/avx/) and some fields might be missing. If you want specific fields to be added then please either get in touch or [submit your own pull request](#contributing).
+This project is a work in progress. It was created for the specific purposes of the [Avocarrot Native Ad Exchange (AVX)](http://www.avocarrot.com/avx/) and some objects fields or functionality might be missing. If you want something to be added then please either get in touch or [submit your own pull request](#contributing).
 
 ## Contributing
 
