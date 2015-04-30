@@ -203,7 +203,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
   describe("The BidResponseBuilder should", function() {
 
-    it("build a valid bid response record", function(done) {
+    it.only("build a valid bid response record", function(done) {
       var builder = new BidResponseBuilder();
       builder
       .timestamp(moment.utc().format())
@@ -230,7 +230,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.adid.should.equal(1);
         bid.adomain[0].should.equal("example.com");
         bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
-        bid.parseAdm().should.equal('parseAdm was called');
+        bid.parseAdm('parseAdm was called').should.equal('parseAdm was called');
         done();
       });
     });
