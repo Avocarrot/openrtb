@@ -6,7 +6,7 @@
 ## Purpose
 A Node.js library which builds, validates and processes OpenRTB objects. This project was inspired by the good people at [Metamarkets](https://metamarkets.com/) who build a [similar library for Java](https://github.com/metamx/rad-tech-datatypes). 
 
-# Contents
+## Contents
 
 - [Installation](#installation)
 - [Constructing objects](#constructing-objects)
