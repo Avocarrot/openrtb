@@ -2,7 +2,7 @@ var RtbObject = require('../lib/rtbObject');
 
 describe("The RtbObject should", function() {
   var rtbObject;
-  before(function(){
+  beforeEach(function(){
     rtbObject = new RtbObject();
   });
 
@@ -19,6 +19,13 @@ describe("The RtbObject should", function() {
     stringified.should.equal('{"prop1":"prop1","prop2":{"nestedProp":"nestedProp"}}');
   });
 
+  it("removes undefined properties", function() {
+    rtbObject.prop1 = 'prop1';
+    rtbObject.prop2 = undefined;
+    var cleaned = rtbObject.removeUndefined();
+    cleaned.should.have.property('prop1', 'prop1');
+    cleaned.should.not.have.property('prop2');
+  });
 
 
 });
