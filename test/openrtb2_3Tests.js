@@ -231,6 +231,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bid.adomain[0].should.equal("example.com");
         bid.iurl.should.equal('http://cdn.testimage.net/1200x627.png');
         bid.parseAdm('parseAdm was called').should.equal('parseAdm was called');
+        bid.ext.should.have.properties({
+          'bidderver': '1'
+        });
         done();
       });
     });

@@ -15,7 +15,10 @@ module.exports = {
               adomain: ["example.com"],
               parseAdm: function(adm) {
                 return adm;
-              }
+              },
+              ext: {
+                bidderver: "1"
+              } 
           	} 
           ]
         }
