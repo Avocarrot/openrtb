@@ -99,6 +99,8 @@ Not supported but most objects for v2.3 should work for this one too.
 		"yob": 1987,
 		"gender": "M"
 	})
+	.bcat(["IAB10"])
+	.badv(["xxx.com"])
 	.ext({
 		'extra': '1234'
 	})
