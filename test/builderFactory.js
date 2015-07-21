@@ -1,15 +1,15 @@
-var BuilderFactory = require('../lib/builderFactory'),
-    BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder,
-    BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder,
-    SeatbidBuilder = require('../lib/openrtb2_3/seatbid').builder,
-    AppBuilder = require('../lib/openrtb2_3/app').builder,
-    DeviceBuilder = require('../lib/openrtb2_3/device').builder,
-    ImpBuilder = require('../lib/openrtb2_3/imp').builder,
-    NativeBuilder = require('../lib/openrtb2_3/native').builder,    
-    BannerBuilder = require('../lib/openrtb2_3/banner').builder,    
-    PublisherBuilder = require('../lib/openrtb2_3/publisher').builder,
-    UserBuilder = require('../lib/openrtb2_3/user').builder,
-    BidBuilder = require('../lib/openrtb2_3/bid').builder;
+var BuilderFactory = require('../lib/builderFactory');
+var BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder;
+var BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
+var SeatbidBuilder = require('../lib/openrtb2_3/seatbid').builder;
+var AppBuilder = require('../lib/openrtb2_3/app').builder;
+var DeviceBuilder = require('../lib/openrtb2_3/device').builder;
+var ImpBuilder = require('../lib/openrtb2_3/imp').builder;
+var NativeBuilder = require('../lib/openrtb2_3/native').builder;
+var BannerBuilder = require('../lib/openrtb2_3/banner').builder;
+var PublisherBuilder = require('../lib/openrtb2_3/publisher').builder;
+var UserBuilder = require('../lib/openrtb2_3/user').builder;
+var BidBuilder = require('../lib/openrtb2_3/bid').builder;
 
 describe("The BuilderFactory should", function() {
   var builderFactory;
