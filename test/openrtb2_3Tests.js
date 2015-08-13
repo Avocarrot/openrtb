@@ -82,6 +82,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .app({
           "id":"55",
           "name":"Test App",
+          "bundle":"com.foo.example",
           "cat":["IAB3-1"],
           "storeurl": "http://www.example.com",
           "publisher":{  
@@ -148,6 +149,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidRequest.app.should.have.properties({
           cat: [ 'IAB3-1' ],
           id: '55',
+          bundle: 'com.foo.example',
           name: 'Test App',
           storeurl: 'http://www.example.com'
         });
