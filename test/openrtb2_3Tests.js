@@ -1,22 +1,22 @@
-var moment = require('moment'),
-    should = require('should'),
-    tk = require('timekeeper'),
-    mockResponse = require('./mocks/mockResponse'),
-    RtbObject = require('../lib/rtbObject'),
-    Bid = require('../lib/openrtb2_3/bid').object,
-    BidRequest = require('../lib/openrtb2_3/bidRequest').object,
-    BidResponse = require('../lib/openrtb2_3/bidResponse').object,
-    Device = require('../lib/openrtb2_3/device').object,
-    Imp = require('../lib/openrtb2_3/imp').object,
-    Native = require('../lib/openrtb2_3/native').object,
-    Banner = require('../lib/openrtb2_3/banner').object,
-    Publisher = require('../lib/openrtb2_3/publisher').object,
-    Seatbid = require('../lib/openrtb2_3/seatbid').object,
-    User = require('../lib/openrtb2_3/user').object,
-    App = require('../lib/openrtb2_3/app').object,
-    BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder,
-    BidBuilder = require('../lib/openrtb2_3/bid').builder,
-    BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
+var moment = require('moment');
+var should = require('should');
+var tk = require('timekeeper');
+var mockResponse = require('./mocks/mockResponse');
+var RtbObject = require('../lib/rtbObject');
+var Bid = require('../lib/openrtb2_3/bid').object;
+var BidRequest = require('../lib/openrtb2_3/bidRequest').object;
+var BidResponse = require('../lib/openrtb2_3/bidResponse').object;
+var Device = require('../lib/openrtb2_3/device').object;
+var Imp = require('../lib/openrtb2_3/imp').object;
+var Native = require('../lib/openrtb2_3/native').object;
+var Banner = require('../lib/openrtb2_3/banner').object;
+var Publisher = require('../lib/openrtb2_3/publisher').object;
+var Seatbid = require('../lib/openrtb2_3/seatbid').object;
+var User = require('../lib/openrtb2_3/user').object;
+var App = require('../lib/openrtb2_3/app').object;
+var BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder;
+var BidBuilder = require('../lib/openrtb2_3/bid').builder;
+var BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
 
 describe("OpenRTB 2.3 unit test suite", function() {
 
@@ -82,6 +82,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .app({
           "id":"55",
           "name":"Test App",
+          "bundle":"com.foo.example",
           "cat":["IAB3-1"],
           "storeurl": "http://www.example.com",
           "publisher":{  
@@ -146,6 +147,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         bidRequest.app.should.have.properties({
           cat: [ 'IAB3-1' ],
           id: '55',
+          bundle: 'com.foo.example',
           name: 'Test App',
           storeurl: 'http://www.example.com'
         });
