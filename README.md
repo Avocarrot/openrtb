@@ -227,10 +227,6 @@ The table below lists the possible values for a bid status.
 
 The bid clearing price determined after an auction.
 
-##### `parseAdm`
-
-A function which parses the bid's adm. If not provided explicitly the default implenentation is to return the adm as is.
-
 **Functions**
 
 ##### `replaceMacros()` 
