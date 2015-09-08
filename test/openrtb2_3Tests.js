@@ -94,6 +94,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
         "dnt":0,
         "ua":"Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
         "ip":"76.174.49.222",
+        "ifa": "AA000DFE74168477C70D291f574D344790E0BB11",
         "connectiontype":2,
         "devicetype":1,
         "didsha1": "bbc9ff2a287598302fd631693949169b0d17f215",
@@ -114,6 +115,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       })
       .bcat(["IAB10"])
       .badv(["xxx.com"])
+      .tmax(200)      
       .ext({
         'extra': '1234'
       })
@@ -163,6 +165,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
           connectiontype: 2,
           didsha1: 'bbc9ff2a287598302fd631693949169b0d17f215',
           ua: 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
+          ifa: 'AA000DFE74168477C70D291f574D344790E0BB11',
           dnt: 0,
           ip: '76.174.49.222',
           geo: {
@@ -188,6 +191,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
         //Check badv property
         bidRequest.badv.should.eql(["xxx.com"]);
+
+        //Check tmax property
+        bidRequest.tmax.should.equal(200);
 
         //Check ext object
         bidRequest.ext.should.have.properties({
