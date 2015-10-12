@@ -225,7 +225,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       builder
       .timestamp(moment.utc().format())
       .status(1)
-      .bidderName('test-bidder')
+      .bidderName('test-bidder')      //we dont add an id to the bidResponse so that it fails validation
       .seatbid(mockResponse.seatbid)
       .build()
       .then(function(result){

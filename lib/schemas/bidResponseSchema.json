@@ -47,7 +47,10 @@
                   "type": "string"
                 },
                 "cat": {
-                  "type": "array"
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "h": {
                   "type": "integer"
@@ -59,7 +62,7 @@
                   "type": "object"
                 }
               },
-              "required": ["id", "impid", "price", "nurl", "adm"]
+              "required": ["id", "impid", "price"]
             }
           }
         }
