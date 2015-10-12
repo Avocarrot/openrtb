@@ -230,8 +230,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .build()
       .then(function(result){
         bidResponse = result.bidResponse;
-        message = result.meta;
-        message.should.eql([{
+        validationErrors = result.meta.validationErrors;
+        validationErrors.should.eql([{
           dataPath: '.id',
           keyword: 'required',
           message: 'is a required property'
@@ -252,8 +252,8 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .build()
       .then(function(result){
         bidResponse = result.bidResponse;
-        message = result.meta;
-        message.should.equal("Bid Response is valid");
+        validationErrors = result.meta.validationErrors;
+        validationErrors.length.should.be.equal(0); //empty array means valid bid response
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
         bidResponse.should.have.property('id', "1234-5678");

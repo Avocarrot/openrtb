@@ -26,8 +26,7 @@
   "dependencies": {
     "ajv": "^1.4.3",
     "bluebird": "^2.9.24",
-    "nconf": "^0.8.2",
-    "util": "^0.10.3"
+    "nconf": "^0.8.2"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
