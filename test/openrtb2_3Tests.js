@@ -220,8 +220,14 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
   describe("The BidResponseBuilder should", function() {
 
+    // it("return valid if a bidResponse is valid", function(done){
+    //   var builder = new BidResponseBuilder();
+      
+
+    // }
+
     it("build a valid bid response record", function(done) {
-      var builder = new BidResponseBuilder();
+      var builder = new BidResponseBuilder(); 
       builder
       .timestamp(moment.utc().format())
       .status(1)
