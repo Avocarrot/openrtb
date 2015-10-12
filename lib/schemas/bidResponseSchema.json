@@ -27,10 +27,13 @@
                     "type": "string"
                   },
                   "adm": {
-                    "type": "string"
+                    "type": "object"
                   },
                   "adomain": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "bundle": {
                     "type": "string"
