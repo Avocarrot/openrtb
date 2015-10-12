@@ -222,7 +222,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
     // it("return valid if a bidResponse is valid", function(done){
     //   var builder = new BidResponseBuilder();
-      
+
 
     // }
 
@@ -231,12 +231,14 @@ describe("OpenRTB 2.3 unit test suite", function() {
       builder
       .timestamp(moment.utc().format())
       .status(1)
+      .id("1234-5678")
       .bidderName('test-bidder')
       .seatbid(mockResponse.seatbid)
       .build()
       .then(function(bidResponse){
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
+        bidResponse.should.have.property('id', "1234-5678");
         bidResponse.should.have.property('bidderName', 'test-bidder');
 
         //Check bids part
