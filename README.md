@@ -116,6 +116,7 @@ Not supported but most objects for v2.3 should work for this one too.
 	builder
 	.timestamp(moment.utc().format())
 	.status(1)
+	.id('1234-5678')
 	.bidderName('test-bidder')
 	.seatbid([
 		{
@@ -201,6 +202,9 @@ The bidder's name used for reporting and debugging.
 
 The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
+##### `id`
+
+The id of the bid request to which this is a response.
 
 ### Bid
 
