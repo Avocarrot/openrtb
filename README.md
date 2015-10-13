@@ -142,7 +142,7 @@ Not supported but most objects for v2.3 should work for this one too.
 	.build()
 	.then(function(result){
 		var bidResponse = result.bidResponse //the bid response object
-		var meta = result.meta 	   	     //object that contains an array with possible validation errors
+		var meta = result.meta 	   	     //object that contains info about the bid response build process including validation errors
 		//Do something with the object
 	});
 ```
@@ -165,7 +165,7 @@ All builders will throw an error when trying to build an object that is missing 
 ```
 
 A validation is performed on the Bid Response object after it has been built, according to the official OpenRTB 2.3 specs.
-The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. E.g if the id is missing from the bid response:
+The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. Also the status of the bid response is updated automatically. (In this case it will be 3 that corresponds to invalid json) E.g if the id is missing from the bid response:
 ```javascript
 	[{
 	    dataPath: '.id',
