@@ -229,9 +229,21 @@ The bid clearing price determined after an auction.
 
 **Functions**
 
-##### `replaceMacros()` 
+##### `replaceMacros([valuesMap])` 
 
 Replaces auction macros for a bid.
+
+```valuesMap``` is an object containing the values to be replaced. The keys are the macro names. See an example below.
+
+```
+{
+	'${AUCTION_ID}': '1234',
+	'${AUCTION_PRICE}': 0.6
+}
+```
+
+If no ```valuesMap``` is passed the parsed values will be used. A special case is ```${AUCTION_ID}``` which if not passed then it will not be replaced.
+
 
 ## Disclaimer
 
