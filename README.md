@@ -164,8 +164,8 @@ All builders will throw an error when trying to build an object that is missing 
 	});
 ```
 
-A validation is performed on the Bid Response object after it has been built, according to the official OpenRTB 2.3 specs.
-The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. Also the status of the bid response is updated automatically. (In this case it will be 3 that corresponds to invalid json) E.g if the id is missing from the bid response:
+During the build process of the bid response, a validation process is performed and the status is updated automatically if the validation fails.
+The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. E.g if the id is missing from the bid response:
 ```javascript
 	[{
 	    dataPath: '.id',
