@@ -2,7 +2,7 @@ var should = require('should');
 var Validator = require('../lib/Validator');
 var bidResponseSchema = require('../lib/openrtb2_3/schemas/bidResponseSchema');
 
-describe.only("The Validator should", function() {
+describe("The Validator should", function() {
 
 	before(function(){
 		this.validator = new Validator();

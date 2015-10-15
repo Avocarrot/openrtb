@@ -18,6 +18,7 @@ var App = require('../lib/openrtb2_3/app').object;
 var BidRequestBuilder = require('../lib/openrtb2_3/bidRequest').builder;
 var BidBuilder = require('../lib/openrtb2_3/bid').builder;
 var BidResponseBuilder = require('../lib/openrtb2_3/bidResponse').builder;
+var ValidationError = require('../lib/errors/ValidationError');
 
 describe("OpenRTB 2.3 unit test suite", function() {
 
@@ -220,7 +221,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
   describe("The BidResponseBuilder should", function() {
 
-    it("set the correct status for an invalid Bid Response", function(done){
+    it("reject an invalid Bid Response", function(done){
       var builder = new BidResponseBuilder(); 
       var invalidSeatBid = JSON.parse(JSON.stringify(mockResponse.seatbid));
       invalidSeatBid[0].bid[0].price = undefined;
@@ -232,20 +233,18 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .bidderName('test-bidder')      //we dont add a price to the bidResponse so that it fails validation
       .seatbid(invalidSeatBid)
       .build()
-      .then(function(result){
-        bidResponse = result.bidResponse;
-        var validationErrors = result.meta.validationErrors;
-        validationErrors.should.eql([{
+      .catch(ValidationError, function(err){
+        err.message.should.eql([{
           dataPath: '.seatbid[0].bid[0].price',
           keyword: 'required',
           message: 'is a required property'
         }]);
-        bidResponse.should.have.property('status', 3);
+
         done();
       });
     });
 
-    it("build a valid bid response record", function(done) {
+    it.only("build a valid bid response record", function(done) {
       var builder = new BidResponseBuilder(); 
       builder
       .timestamp(moment.utc().format())
@@ -254,10 +253,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .bidderName('test-bidder')
       .seatbid(mockResponse.seatbid)
       .build()
-      .then(function(result){
-        bidResponse = result.bidResponse;
-        var validationErrors = result.meta.validationErrors;
-        validationErrors.length.should.be.equal(0); //empty array means valid bid response
+      .then(function(bidResponse){
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
         bidResponse.should.have.property('id', "1234-5678");
