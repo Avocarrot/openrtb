@@ -222,17 +222,21 @@ describe("OpenRTB 2.3 unit test suite", function() {
 
     it("set the correct status for an invalid Bid Response", function(done){
       var builder = new BidResponseBuilder(); 
+      var invalidSeatBid = JSON.parse(JSON.stringify(mockResponse.seatbid));
+      invalidSeatBid[0].bid[0].price = undefined;
+
       builder
       .timestamp(moment.utc().format())
       .status(1)
-      .bidderName('test-bidder')      //we dont add an id to the bidResponse so that it fails validation
-      .seatbid(mockResponse.seatbid)
+      .id("1234-5678")
+      .bidderName('test-bidder')      //we dont add a price to the bidResponse so that it fails validation
+      .seatbid(invalidSeatBid)
       .build()
       .then(function(result){
         bidResponse = result.bidResponse;
-        validationErrors = result.meta.validationErrors;
+        var validationErrors = result.meta.validationErrors;
         validationErrors.should.eql([{
-          dataPath: '.id',
+          dataPath: '.seatbid[0].bid[0].price',
           keyword: 'required',
           message: 'is a required property'
         }]);
@@ -252,7 +256,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       .build()
       .then(function(result){
         bidResponse = result.bidResponse;
-        validationErrors = result.meta.validationErrors;
+        var validationErrors = result.meta.validationErrors;
         validationErrors.length.should.be.equal(0); //empty array means valid bid response
         bidResponse.should.have.property('timestamp', '2015-01-14T00:00:00+00:00');
         bidResponse.should.have.property('status', 1);
