@@ -36,6 +36,7 @@ The library exposes object builders which are used to construct new objects.
 	- User
      
 - BidResponse
+    - Id
     - SeatBid
         - Bid 
 
@@ -116,6 +117,7 @@ Not supported but most objects for v2.3 should work for this one too.
 	builder
 	.timestamp(moment.utc().format())
 	.status(1)
+	.id('1234-5678')
 	.bidderName('test-bidder')
 	.seatbid([
 		{
@@ -138,7 +140,9 @@ Not supported but most objects for v2.3 should work for this one too.
 		}
 	])
 	.build()
-	.then(function(bidResponse){
+	.then(function(result){
+		var bidResponse = result.bidResponse //the bid response object
+		var meta = result.meta 	   	     //object that contains info about the bid response build process including validation errors
 		//Do something with the object
 	});
 ```
@@ -158,6 +162,16 @@ All builders will throw an error when trying to build an object that is missing 
 		//The following statement will print 'BidRequest should have a requestId'
 		console.log(err.message);
 	});
+```
+
+During the build process of the bid response, a validation process is performed and the status is updated automatically if the validation fails.
+The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. E.g if the id is missing from the bid response:
+```javascript
+	[{
+	    dataPath: '.id',
+	    keyword: 'required',
+	    message: 'is a required property'
+  	}]
 ```
 
 ## Objects API
@@ -201,6 +215,9 @@ The bidder's name used for reporting and debugging.
 
 The timestamp of bid response. If not provided explicitly at build time the default will be the current UTC when the object is created.
 
+##### `id`
+
+The id of the bid request to which this is a response.
 
 ### Bid
 

@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Avocarrot/openrtb",
   "dependencies": {
+    "ajv": "^1.4.3",
     "bluebird": "^2.9.24"
   },
   "devDependencies": {
