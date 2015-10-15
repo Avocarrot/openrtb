@@ -244,7 +244,7 @@ describe("OpenRTB 2.3 unit test suite", function() {
       });
     });
 
-    it.only("build a valid bid response record", function(done) {
+    it("build a valid bid response record", function(done) {
       var builder = new BidResponseBuilder(); 
       builder
       .timestamp(moment.utc().format())
