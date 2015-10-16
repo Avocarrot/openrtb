@@ -143,7 +143,7 @@ Not supported but most objects for v2.3 should work for this one too.
 	.then(function(bidResponse){
 		//Do something with the object
 	}).catch(function(err){
-		//Throws a Validation Error if the bid response is invalid
+		//If the validation fails it throws a Validation Error
 	});
 ```
 
@@ -159,12 +159,13 @@ During the build process of the bid response, a validation process is performed 
     	.timestamp(moment.utc().format())
 	.build()
 	.catch(function(err){
-		//The following statement will print '[{
+		console.log(err.message); //prints: "Validation failed"
+		console.log(err.errors);  //prints:
+		//'[{
 		//    dataPath: '.id',
 		//    keyword: 'required',
 		//    message: 'is a required property'
 	  	//}]'
-		console.log(err.message);
 	});
 ```
 
