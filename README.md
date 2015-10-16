@@ -140,38 +140,32 @@ Not supported but most objects for v2.3 should work for this one too.
 		}
 	])
 	.build()
-	.then(function(result){
-		var bidResponse = result.bidResponse //the bid response object
-		var meta = result.meta 	   	     //object that contains info about the bid response build process including validation errors
+	.then(function(bidResponse){
 		//Do something with the object
+	}).catch(function(err){
+		//Throws a Validation Error if the bid response is invalid
 	});
 ```
 
 ## Validating objects
 
-All builders will throw an error when trying to build an object that is missing a required parameter.
+During the build process of the bid response, a validation process is performed on the object and if there are discrepancies with the official OpenRTB documentation, a Validation Error is thrown. E.g if the id is missing from the bid response:
 
 ```javascript
-	var builder = new BidRequestBuilder();
+	var builder = new BidResponseBuilder();
 
-	//Trying to build a bid request without a request id
+	//Trying to build a bid request without a response id
 	builder
-    .timestamp(moment.utc().format())
+    	.timestamp(moment.utc().format())
 	.build()
 	.catch(function(err){
-		//The following statement will print 'BidRequest should have a requestId'
+		//The following statement will print '[{
+		//    dataPath: '.id',
+		//    keyword: 'required',
+		//    message: 'is a required property'
+	  	//}]'
 		console.log(err.message);
 	});
-```
-
-During the build process of the bid response, a validation process is performed and the status is updated automatically if the validation fails.
-The results of the validation are stored in a meta field in the form of an array that contains the specific validation error that occured. E.g if the id is missing from the bid response:
-```javascript
-	[{
-	    dataPath: '.id',
-	    keyword: 'required',
-	    message: 'is a required property'
-  	}]
 ```
 
 ## Objects API
