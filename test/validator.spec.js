@@ -1,5 +1,5 @@
 var should = require('should');
-var Validator = require('../lib/Validator');
+var Validator = require('../lib/validator');
 var bidResponseSchema = require('../lib/openrtb2_3/schemas/bidResponseSchema');
 var mockResponse = require('./mocks/mockResponse');
 
