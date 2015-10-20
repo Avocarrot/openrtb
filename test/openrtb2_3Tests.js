@@ -281,17 +281,6 @@ describe("OpenRTB 2.3 unit test suite", function() {
       });
     });
 
-    it("throw an error if a bid response-level status was not provided", function(done) {
-      var builder = new BidResponseBuilder();
-      builder
-      .timestamp(moment.utc().format())
-      .build()
-      .catch(function(err){
-        err.message.should.equal('BidResponse should have a status');
-        done();
-      });
-    });
-
   });
 
   describe("The Bid object should", function() {
