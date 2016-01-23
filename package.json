@@ -1,6 +1,6 @@
 {
   "name": "openrtb",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A Javascript library which builds and validates OpenRTB objects",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/Avocarrot/openrtb",
   "dependencies": {
-    "ajv": "^1.4.3",
-    "bluebird": "^2.9.24"
+    "ajv": "^1.4.3"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
