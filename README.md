@@ -47,7 +47,7 @@ Not supported but most objects for v2.3 should work for this one too.
 ### Construct a bid request
 ```javascript
     var builder = new BidRequestBuilder();
-	builder
+	var bidRequest = builder
 	.timestamp(moment.utc().format())
 	.id('1234')
 	.at(2)
@@ -105,16 +105,13 @@ Not supported but most objects for v2.3 should work for this one too.
 	.ext({
 		'extra': '1234'
 	})
-	.build()
-	.then(function(bidRequest){
-		//Do something with the object
-	});
+	.build();
 ```
 
 ### Construct a bid response
 ```javascript
 	var builder = new BidResponseBuilder();
-	builder
+	var bidResponse = builder
 	.timestamp(moment.utc().format())
 	.status(1)
 	.id('1234-5678')
@@ -139,12 +136,7 @@ Not supported but most objects for v2.3 should work for this one too.
 			]
 		}
 	])
-	.build()
-	.then(function(bidResponse){
-		//Do something with the object
-	}).catch(function(err){
-		//If the validation fails it throws a Validation Error
-	});
+	.build();
 ```
 
 ## Validating objects
@@ -155,10 +147,11 @@ During the build process of the bid response, a validation process is performed 
 	var builder = new BidResponseBuilder();
 
 	//Trying to build a bid request without a response id
-	builder
-    	.timestamp(moment.utc().format())
-	.build()
-	.catch(function(err){
+	try {	
+		builder
+		.timestamp(moment.utc().format())
+		.build();
+	} catch(err) {
 		console.log(err.message); //prints: "Validation failed"
 		console.log(err.errors);  //prints:
 		//'[{
@@ -166,7 +159,7 @@ During the build process of the bid response, a validation process is performed 
 		//    keyword: 'required',
 		//    message: 'is a required property'
 	  	//}]'
-	});
+	}
 ```
 
 ## Objects API
