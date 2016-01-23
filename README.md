@@ -152,8 +152,8 @@ During the build process of the bid response, a validation process is performed 
 		.timestamp(moment.utc().format())
 		.build();
 	} catch(err) {
-		console.log(err.message); //prints: "Validation failed"
-		console.log(err.errors);  //prints:
+		//err.message: "Validation failed"
+		//err.errors:
 		//'[{
 		//    dataPath: '.id',
 		//    keyword: 'required',
