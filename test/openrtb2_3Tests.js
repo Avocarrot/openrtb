@@ -107,7 +107,9 @@ describe("OpenRTB 2.3 unit test suite", function() {
         "os": "Android",
         "osv": "5.1.1",
         "geo": {
-            "country": "UK"
+            "country": "UK",
+            "lat": null,
+            "lon": null
         }
       })
       .user({
