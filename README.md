@@ -190,10 +190,12 @@ The table below lists the possible values for a bid response status.
 
 | Status  | Description  |
 |---|---|
-| 1  | Valid  |
-| 2  | Timeout |
-| 3  | Invalid JSON |
-| 4  | HTTP Error  |
+| 1 | Filled |
+| 2 | No bid |
+| 3 | Timeout |
+| 4 | Invalid JSON |
+| 5 | HTTP Error |
+| 6 | Bid request failed |
 
 ##### `bidderName`
 
