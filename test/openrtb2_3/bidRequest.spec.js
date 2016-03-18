@@ -19,7 +19,7 @@ describe("BidRequest tests", function() {
 	describe("The BidRequest object should", function() {
 		it("be an instance of RtbObject", function() {
 		  var bidRequest = new BidRequest();
-		  bidRequest.should.be.an.instanceof(RtbObject);      
+		  bidRequest.should.be.an.instanceof(RtbObject);
 		});
 	});
 
@@ -36,7 +36,7 @@ describe("BidRequest tests", function() {
 		      {
 		          "id":"1",
 		          "native":{
-		            "api": [ 3 ], 
+		            "api": [ 3 ],
 		            "battr": [ 13, 14 ],
 		            "request": {
 		              "ver": 1,
@@ -48,23 +48,23 @@ describe("BidRequest tests", function() {
 		                  "title": {
 		                    "len": 25
 		                  }
-		                }, 
-		                { 
-		                  "id": 1, 
-		                  "req": 1, 
-		                  "img": { 
-		                    "type": 3, 
-		                    "wmin": 100, 
-		                    "hmin": 100
-		                  } 
 		                },
 		                {
-		                  "id": 3, 
-		                  "req": 0, 
-		                  "data": { 
+		                  "id": 1,
+		                  "req": 1,
+		                  "img": {
+		                    "type": 3,
+		                    "wmin": 100,
+		                    "hmin": 100
+		                  }
+		                },
+		                {
+		                  "id": 3,
+		                  "req": 0,
+		                  "data": {
 		                    "type": 2,
 		                    "len": 90
-		                  }                       
+		                  }
 		                }
 		              ]
 		            }
@@ -79,7 +79,7 @@ describe("BidRequest tests", function() {
 		      "bundle":"com.foo.example",
 		      "cat":["IAB3-1"],
 		      "storeurl": "http://www.example.com",
-		      "publisher":{  
+		      "publisher":{
 		          "id": "6332",
 		          "name": 'publisher 1'
 		      }
@@ -112,6 +112,33 @@ describe("BidRequest tests", function() {
 		  .bcat(["IAB10"])
 		  .badv(["xxx.com"])
 		  .tmax(200)
+          .site({
+              "id": "10",
+              "name": "Test",
+              "domain": "example.com",
+              "cat":["IAB3-1"],
+              "sectionCat":["IAB3-1"],
+              "pageCat":["IAB3-1"],
+              "page": "http://www.example.com/test",
+              "ref": "http://www.referrer.com",
+              "search": "search string",
+              "mobile": 0,
+              "privacypolicy": 0,
+              "publisher":{
+		          "id": "6332",
+		          "name": 'publisher 1'
+		      },
+              "keyworkds": "keyword1,keyword2",
+              "ext": {
+    		    "extra": "1234"
+    		  }
+          })
+          .regs({
+              "coppa": 1,
+              "ext": {
+    		    "extra": "1234"
+    		  }
+          })
 		  .ext({
 		    'extra': '1234'
 		  })
@@ -157,25 +184,25 @@ describe("BidRequest tests", function() {
 
 		  //Check device object
 		  bidRequest.device.should.have.properties({
-		    carrier: 'o2',
-		    connectiontype: 2,
-		    didsha1: 'bbc9ff2a287598302fd631693949169b0d17f215',
-		    ua: 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
-		    ifa: 'AA000DFE74168477C70D291f574D344790E0BB11',
-		    dnt: 0,
-		    ip: '76.174.49.222',
-		    geo: {
-		      country: "UK"
-		    },
-		    language: 'en',
-		    make: 'samsung GT-I9300',
-		    model: 'Android',
-		    os: 'Android',
-		    osv: '5.1.1',
-		    devicetype: 1
+            carrier: 'o2',
+  		    connectiontype: 2,
+  		    didsha1: 'bbc9ff2a287598302fd631693949169b0d17f215',
+  		    ua: 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
+  		    ifa: 'AA000DFE74168477C70D291f574D344790E0BB11',
+  		    dnt: 0,
+  		    ip: '76.174.49.222',
+  		    geo: {
+  		      country: "UK"
+  		    },
+  		    language: 'en',
+  		    make: 'samsung GT-I9300',
+  		    model: 'Android',
+  		    os: 'Android',
+  		    osv: '5.1.1',
+  		    devicetype: 1
 		  });
 
-		  //Check user object
+          //Check user object
 		  bidRequest.user.should.have.properties({
 		    id: '55816b39711f9b5acf3b90e313ed29e51665623f',
 		    gender: 'M',
@@ -190,6 +217,36 @@ describe("BidRequest tests", function() {
 
 		  //Check tmax property
 		  bidRequest.tmax.should.equal(200);
+
+          //Check site object
+		  bidRequest.site.should.have.properties({
+            id: "10",
+            name: "Test",
+            domain: "example.com",
+            cat:["IAB3-1"],
+            sectionCat:["IAB3-1"],
+            pageCat:["IAB3-1"],
+            page: "http://www.example.com/test",
+            ref: "http://www.referrer.com",
+            search: "search string",
+            mobile: 0,
+            privacypolicy: 0,
+            keyworkds: "keyword1,keyword2",
+            ext: {
+              extra: "1234"
+            }
+		  });
+
+          //Check site.publisher object
+		  bidRequest.site.publisher.should.have.properties({ id: '6332', name: 'publisher 1' });
+
+          //Check regs object
+          bidRequest.regs.should.have.properties({
+            coppa: 1,
+            ext: {
+              extra: "1234"
+            }
+          });
 
 		  //Check ext object
 		  bidRequest.ext.should.have.properties({
