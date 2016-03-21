@@ -117,8 +117,8 @@ describe("BidRequest tests", function() {
               "name": "Test",
               "domain": "example.com",
               "cat":["IAB3-1"],
-              "sectionCat":["IAB3-1"],
-              "pageCat":["IAB3-1"],
+              "sectioncat":["IAB3-1"],
+              "pagecat":["IAB3-1"],
               "page": "http://www.example.com/test",
               "ref": "http://www.referrer.com",
               "search": "search string",
@@ -128,7 +128,7 @@ describe("BidRequest tests", function() {
 		          "id": "6332",
 		          "name": 'publisher 1'
 		      },
-              "keyworkds": "keyword1,keyword2",
+              "keywords": "keyword1,keyword2",
               "ext": {
     		    "extra": "1234"
     		  }
@@ -224,14 +224,14 @@ describe("BidRequest tests", function() {
             name: "Test",
             domain: "example.com",
             cat:["IAB3-1"],
-            sectionCat:["IAB3-1"],
-            pageCat:["IAB3-1"],
+            sectioncat:["IAB3-1"],
+            pagecat:["IAB3-1"],
             page: "http://www.example.com/test",
             ref: "http://www.referrer.com",
             search: "search string",
             mobile: 0,
             privacypolicy: 0,
-            keyworkds: "keyword1,keyword2",
+            keywords: "keyword1,keyword2",
             ext: {
               extra: "1234"
             }
