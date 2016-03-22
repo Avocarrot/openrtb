@@ -32,8 +32,11 @@ The library exposes object builders which are used to construct new objects.
 	    - Banner
 	- App
 	    - Publisher
+	- Site	    
+	    - Publisher
 	- Device
 	- User
+	- Reqs
      
 - BidResponse
     - Id
