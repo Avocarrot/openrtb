@@ -256,7 +256,7 @@ Replaces auction macros on a given string and returns the altered string.
 
 If no ```valuesMap``` is passed the parsed values will be used. A special case is ```${AUCTION_ID}``` which if not passed then it will not be replaced.
 
-String is a required argument.
+```string``` is a required argument.
 
 
 ## Disclaimer
