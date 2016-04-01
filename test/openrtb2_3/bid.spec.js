@@ -20,38 +20,54 @@ describe("The Bid object should", function() {
 		bid.should.be.an.instanceof(RtbObject);
 	});
 
-	it("replace macros in adm and nurl", function() {
+	it("replace macros in a given string", function() {
 		var clearPrice = 0.9;
 		var bidResponseId = '1234';
 		var bid = bidBuilder
 			.clearPrice(clearPrice)
-			.nurl('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}&id=${AUCTION_ID}')
-			.adm('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&bidResId=${AUCTION_ID}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}')
 			.build();
 
-		bid.replaceMacros({
+		var imptracker = "http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&bidResId=${AUCTION_ID}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img";
+		bid.replaceMacros(imptracker, {
 			'${AUCTION_ID}': bidResponseId
-		});
-
-		bid.nurl.should.equal(util.format('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=%s&id=%s', clearPrice, bidResponseId));
-		bid.adm.should.equal(JSON.stringify({
-			"native":{
-				"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],
-				"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},
-				"imptrackers":[util.format("http://trackimp.com/Pixel/Impression/?bidPrice=%s&bidResId=%s&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img", clearPrice, bidResponseId)]
-			}
-		}));
+		}).should.equal(util.format("http://trackimp.com/Pixel/Impression/?bidPrice=%s&bidResId=%s&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img", clearPrice, bidResponseId));
+		
 	});
 
 	it("throw an error if we try to replace macros without a clearPrice", function() {
-		var bid = bidBuilder
-			.nurl('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}')
-			.adm('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}')
-			.build();
+		var bid = bidBuilder.build();
 
 		(function(){
-			bid.replaceMacros();
+			bid.replaceMacros('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}');
 		}).should.throw('Cannot replace macros without a clear price');
 	});
 
+	it("throw an error if we try to replace macros without passing a string", function() {
+		var bid = bidBuilder.build();
+		var bidResponseId = '1234';
+
+		(function(){
+			bid.replaceMacros({
+				'${AUCTION_ID}': bidResponseId
+			});
+		}).should.throw('Invalid string argument');
+	});
+
+	it("throw an error if we try to replace macros on empty string", function() {
+		var bid = bidBuilder.build();
+		var bidResponseId = '1234';
+
+		(function(){
+			bid.replaceMacros('', {
+				'${AUCTION_ID}': bidResponseId
+			});
+		}).should.throw('Invalid string argument');
+	});
+
 });
+
+
+
+
+
+

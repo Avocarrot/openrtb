@@ -239,9 +239,11 @@ The bid clearing price determined after an auction.
 
 **Functions**
 
-##### `replaceMacros([valuesMap])` 
+##### `replaceMacros(string, [valuesMap])` 
 
-Replaces auction macros for a bid.
+Replaces auction macros on a given string and returns the altered string.
+
+```string``` is the string with the MACROS that will be replaced. e.g the nurl of a bid
 
 ```valuesMap``` is an object containing the values to be replaced. The keys are the macro names. See an example below.
 
@@ -253,6 +255,8 @@ Replaces auction macros for a bid.
 ```
 
 If no ```valuesMap``` is passed the parsed values will be used. A special case is ```${AUCTION_ID}``` which if not passed then it will not be replaced.
+
+```string``` is a required argument.
 
 
 ## Disclaimer
