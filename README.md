@@ -212,6 +212,15 @@ The timestamp of bid response. If not provided explicitly at build time the defa
 
 The id of the bid request to which this is a response.
 
+**Functions**
+
+##### `forEachBid(callback)` 
+
+It executes a provided function once per bid. The callback is called with two arguments
+
+`bid` The current bid being processed in the bids array.
+`index` The index of the current bid being processed in the bids array.
+
 ### Bid
 
 **Additional Properties**
