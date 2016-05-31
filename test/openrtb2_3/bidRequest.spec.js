@@ -70,7 +70,8 @@ describe("BidRequest tests", function() {
 		            }
 		          },
 		          "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
-		          "bidfloor": 1.3
+		          "bidfloor": 1.3,
+		          "secure": 0,
 		      }
 		  ])
 		  .app({
@@ -153,7 +154,8 @@ describe("BidRequest tests", function() {
 		  bidRequest.imp[0].should.have.properties({
 		    id: '1',
 		    bidfloor: 1.3,
-		    tagid: 'eb09ff2a287598302fd631493949169b0d17f815'
+		    tagid: 'eb09ff2a287598302fd631493949169b0d17f815',
+		    secure: 0,
 		  });
 
 		  //Check imp.native object

@@ -2,6 +2,8 @@ module.exports = {
   id: "12345",
 	seatbid:[
         {
+          seat: '123',
+          group: 0,
           bid: [
             {
               adid: 1,
@@ -16,7 +18,7 @@ module.exports = {
               adomain: ["example.com"],
               ext: {
                 bidderver: "1"
-              } 
+              }
           	},
             {
               adid: 2,
@@ -29,7 +31,7 @@ module.exports = {
               crid: '224335',
               iurl: 'http://cdn.testimage.net/1200x627.png',
               adomain: ["test.com"]
-            } 
+            }
           ]
         }
   	]

@@ -22,11 +22,11 @@ describe("BidResponse tests", function() {
 
     it("BidResponse should be an instance of RtbObject", function() {
       var bidResponse = new BidResponse();
-      bidResponse.should.be.an.instanceof(RtbObject);      
+      bidResponse.should.be.an.instanceof(RtbObject);
     });
 
     it("forEachBid() should iterate over all bids", function() {
-      var builder = new BidResponseBuilder(); 
+      var builder = new BidResponseBuilder();
       var bidResponse = builder
       .timestamp(moment.utc().format())
       .status(1)
@@ -46,7 +46,7 @@ describe("BidResponse tests", function() {
 
     describe('build() should', function() {
       it("reject an invalid Bid Response", function(){
-        var builder = new BidResponseBuilder(); 
+        var builder = new BidResponseBuilder();
         var invalidSeatBid = JSON.parse(JSON.stringify(mockResponse.seatbid));
         invalidSeatBid[0].bid[0].price = undefined;
 
@@ -62,7 +62,7 @@ describe("BidResponse tests", function() {
       });
 
       it("construct a valid bid response record", function() {
-        var builder = new BidResponseBuilder(); 
+        var builder = new BidResponseBuilder();
         var bidResponse = builder
         .timestamp(moment.utc().format())
         .status(1)
@@ -79,6 +79,8 @@ describe("BidResponse tests", function() {
         //Check bids part
         bidResponse.should.have.property('seatbid');
         bidResponse.seatbid.length.should.equal(1);
+        bidResponse.seatbid[0].should.have.property('seat', '123');
+        bidResponse.seatbid[0].should.have.property('group', 0);
         var bid = bidResponse.seatbid[0].bid[0];
         bid.nurl.should.equal('http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}');
         bid.adm.should.be.equal('{"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}}');
