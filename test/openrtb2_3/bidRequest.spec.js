@@ -129,6 +129,14 @@ describe("BidRequest tests", function() {
 		          "id": "6332",
 		          "name": 'publisher 1'
 		      },
+              "content": {
+                  "id": "1234",
+                  "episode": 1,
+                  "title": "title example",
+                  "series": "example serie",
+                  "url": "http://www.content.com",
+                  "language": 'EN'
+              },
               "keywords": "keyword1,keyword2",
               "ext": {
     		    "extra": "1234"
@@ -241,6 +249,16 @@ describe("BidRequest tests", function() {
 
           //Check site.publisher object
 		  bidRequest.site.publisher.should.have.properties({ id: '6332', name: 'publisher 1' });
+
+          //Check site.content object
+		  bidRequest.site.content.should.have.properties({
+              id: "1234",
+              episode: 1,
+              title: "title example",
+              series: "example serie",
+              url: "http://www.content.com",
+              language: 'EN'
+          });
 
           //Check regs object
           bidRequest.regs.should.have.properties({
