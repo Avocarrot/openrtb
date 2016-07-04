@@ -1,6 +1,6 @@
 {
   "name": "openrtb",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "A Javascript library which builds and validates OpenRTB objects",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "mocha": "^2.2.4",
-    "moment": "^2.10.2",
+    "moment": "^2.14.1",
     "should": "^6.0.1",
     "timekeeper": "0.0.5"
   }
