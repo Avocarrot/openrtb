@@ -70,7 +70,8 @@ describe("BidRequest tests", function() {
 		            }
 		          },
 		          "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
-		          "bidfloor": 1.3
+		          "bidfloor": 1.3,
+		          "secure": 0,
 		      }
 		  ])
 		  .app({
@@ -128,6 +129,14 @@ describe("BidRequest tests", function() {
 		          "id": "6332",
 		          "name": 'publisher 1'
 		      },
+              "content": {
+                  "id": "1234",
+                  "episode": 1,
+                  "title": "title example",
+                  "series": "example serie",
+                  "url": "http://www.content.com",
+                  "language": 'EN'
+              },
               "keywords": "keyword1,keyword2",
               "ext": {
     		    "extra": "1234"
@@ -144,7 +153,7 @@ describe("BidRequest tests", function() {
 		  })
 		  .build();
 
-		  bidRequest.should.have.property('timestamp', "2015-01-14T00:00:00+00:00");
+		  bidRequest.should.have.property('timestamp', "2015-01-14T00:00:00Z");
 		  bidRequest.should.have.property('id', "1234");
 		  bidRequest.should.have.property('at', 2);
 
@@ -153,7 +162,8 @@ describe("BidRequest tests", function() {
 		  bidRequest.imp[0].should.have.properties({
 		    id: '1',
 		    bidfloor: 1.3,
-		    tagid: 'eb09ff2a287598302fd631493949169b0d17f815'
+		    tagid: 'eb09ff2a287598302fd631493949169b0d17f815',
+		    secure: 0,
 		  });
 
 		  //Check imp.native object
@@ -239,6 +249,16 @@ describe("BidRequest tests", function() {
 
           //Check site.publisher object
 		  bidRequest.site.publisher.should.have.properties({ id: '6332', name: 'publisher 1' });
+
+          //Check site.content object
+		  bidRequest.site.content.should.have.properties({
+              id: "1234",
+              episode: 1,
+              title: "title example",
+              series: "example serie",
+              url: "http://www.content.com",
+              language: 'EN'
+          });
 
           //Check regs object
           bidRequest.regs.should.have.properties({
