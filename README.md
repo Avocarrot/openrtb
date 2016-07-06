@@ -49,8 +49,10 @@ Not supported but most objects for v2.3 should work for this one too.
 
 ### Construct a bid request
 ```javascript
-    var builder = new BidRequestBuilder();
-	var bidRequest = builder
+  var bidRequestBuilder = openrtb.getBuilder({
+    builderType: 'bidRequest'
+  });
+	var bidRequest = bidRequestBuilder
 	.timestamp(moment.utc().format())
 	.id('1234')
 	.at(2)
@@ -113,8 +115,10 @@ Not supported but most objects for v2.3 should work for this one too.
 
 ### Construct a bid response
 ```javascript
-	var builder = new BidResponseBuilder();
-	var bidResponse = builder
+  var bidResponseBuilder = openrtb.getBuilder({
+    builderType: 'bidResponse'
+  });
+	var bidResponse = bidResponseBuilder
 	.timestamp(moment.utc().format())
 	.status(1)
 	.id('1234-5678')
@@ -147,11 +151,13 @@ Not supported but most objects for v2.3 should work for this one too.
 During the build process of the bid response, a validation process is performed on the object and if there are discrepancies with the official OpenRTB documentation, a Validation Error is thrown. E.g if the id is missing from the bid response:
 
 ```javascript
-	var builder = new BidResponseBuilder();
+  var bidResponseBuilder = openrtb.getBuilder({
+    builderType: 'bidResponse'
+  });
 
 	//Trying to build a bid request without a response id
 	try {	
-		builder
+		bidResponseBuilder
 		.timestamp(moment.utc().format())
 		.build();
 	} catch(err) {
