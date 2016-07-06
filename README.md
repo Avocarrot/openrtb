@@ -27,21 +27,21 @@ The library exposes object builders which are used to construct new objects.
 **OpenRTB API Specification Version 2.3**
 
 - BidRequest
-	- Imp
-	    - Native
-	    - Banner
-	- App
-	    - Publisher
-	- Site	    
-	    - Publisher
-	- Device
-	- User
-	- Reqs
+  - Imp
+    - Native
+    - Banner
+  - App
+    - Publisher
+  - Site      
+    - Publisher
+  - Device
+  - User
+  - Reqs
      
 - BidResponse
     - Id
     - SeatBid
-        - Bid 
+      - Bid 
 
 **OpenRTB API Specification Version 2.2**
 
@@ -52,65 +52,65 @@ Not supported but most objects for v2.3 should work for this one too.
   var bidRequestBuilder = openrtb.getBuilder({
     builderType: 'bidRequest'
   });
-	var bidRequest = bidRequestBuilder
-	.timestamp(moment.utc().format())
-	.id('1234')
-	.at(2)
-	.imp([
-	  {
-	      "id":"1",
-          "native":{
-            "request": {
-              "ver": 1,
-              "layout": 6,
-              "assets": [
-                { "id": 0, "req": 1, "title": { "len": 25 } }, 
-                { "id": 1, "req": 1, "img": { "type": 3, "wmin": 100, "hmin": 100 } },
-                { "id": 3, "req": 0, "data": { "type": 2, "len": 90 } }
-              ]
-            }
-          },
-	      "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
-	      "bidfloor": 1.3
-	  }
-	])
-	.app({
-	  "id":"55",
-	  "name":"Test App",
-	  "cat":["IAB3-1"],
-	  "storeurl": "http://www.example.com",
-	  "publisher":{  
-	      "id": "6332"
-	  }
-	})
-	.device({
-		"dnt":0,
-		"ua":"Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
-		"ip":"76.174.49.222",
-		"connectiontype":2,
-		"devicetype":1,
-		"didsha1": "bbc9ff2a287598302fd631693949169b0d17f215",
-		"carrier": "o2",
-		"make": "samsung GT-I9300",
-		"model": "Android",
-		"language": "en",
-		"os": "Android",
-		"osv": "5.1.1",
-		"geo": {
-		    "country": "UK"
-		}
-	})
-	.user({
-		"id":"55816b39711f9b5acf3b90e313ed29e51665623f",
-		"yob": 1987,
-		"gender": "M"
-	})
-	.bcat(["IAB10"])
-	.badv(["xxx.com"])
-	.ext({
-		'extra': '1234'
-	})
-	.build();
+  var bidRequest = bidRequestBuilder
+  .timestamp(moment.utc().format())
+  .id('1234')
+  .at(2)
+  .imp([
+    {
+      "id":"1",
+      "native":{
+        "request": {
+          "ver": 1,
+          "layout": 6,
+          "assets": [
+            { "id": 0, "req": 1, "title": { "len": 25 } }, 
+            { "id": 1, "req": 1, "img": { "type": 3, "wmin": 100, "hmin": 100 } },
+            { "id": 3, "req": 0, "data": { "type": 2, "len": 90 } }
+          ]
+        }
+      },
+      "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
+      "bidfloor": 1.3
+    }
+  ])
+  .app({
+    "id":"55",
+    "name":"Test App",
+    "cat":["IAB3-1"],
+    "storeurl": "http://www.example.com",
+    "publisher":{  
+        "id": "6332"
+    }
+  })
+  .device({
+    "dnt":0,
+    "ua":"Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+    "ip":"76.174.49.222",
+    "connectiontype":2,
+    "devicetype":1,
+    "didsha1": "bbc9ff2a287598302fd631693949169b0d17f215",
+    "carrier": "o2",
+    "make": "samsung GT-I9300",
+    "model": "Android",
+    "language": "en",
+    "os": "Android",
+    "osv": "5.1.1",
+    "geo": {
+        "country": "UK"
+    }
+  })
+  .user({
+    "id":"55816b39711f9b5acf3b90e313ed29e51665623f",
+    "yob": 1987,
+    "gender": "M"
+  })
+  .bcat(["IAB10"])
+  .badv(["xxx.com"])
+  .ext({
+    'extra': '1234'
+  })
+  .build();
 ```
 
 ### Construct a bid response
@@ -118,32 +118,32 @@ Not supported but most objects for v2.3 should work for this one too.
   var bidResponseBuilder = openrtb.getBuilder({
     builderType: 'bidResponse'
   });
-	var bidResponse = bidResponseBuilder
-	.timestamp(moment.utc().format())
-	.status(1)
-	.id('1234-5678')
-	.bidderName('test-bidder')
-	.seatbid([
-		{
-			bid: [
-				{
-				  status: 1,
-				  clearPrice: 0.9,
-				  adid: 1,
-				  id: '819582c3-96b2-401a-b60d-7ac3c117a513',
-				  impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
-				  price: 1.05,
-				  nurl: 'http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}',
-				  adm: {"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}},
-				  cid: '9607',
-				  crid: '335224',
-				  iurl: 'http://cdn.testimage.net/1200x627.png',
-				  adomain: ["example.com"] 
-				} 
-			]
-		}
-	])
-	.build();
+  var bidResponse = bidResponseBuilder
+  .timestamp(moment.utc().format())
+  .status(1)
+  .id('1234-5678')
+  .bidderName('test-bidder')
+  .seatbid([
+    {
+      bid: [
+        {
+          status: 1,
+          clearPrice: 0.9,
+          adid: 1,
+          id: '819582c3-96b2-401a-b60d-7ac3c117a513',
+          impid: 'e317ae49-8cd1-47b0-b022-02a8830182ce',
+          price: 1.05,
+          nurl: 'http://trackwin.com/win?pid=784170&data=OuJifVtEK&price=${AUCTION_PRICE}',
+          adm: {"native":{"assets":[{"id":0,"title":{"text":"Test Campaign"}},{"id":1,"img":{"url":"http://cdn.exampleimage.com/a/100/100/2639042","w":100,"h":100}},{"id":2,"img":{"url":"http://cdn.exampleimage.com/a/50/50/2639042","w":50,"h":50}},{"id":3,"data":{"value":"This is an amazing offer..."}},{"id":5,"data":{"value":"Install"}}],"link":{"url":"http://trackclick.com/Click?data=soDvIjYdQMm3WBjoORcGaDvJGOzgMvUap7vAw2"},"imptrackers":["http://trackimp.com/Pixel/Impression/?bidPrice=${AUCTION_PRICE}&data=OuJifVtEKZqw3Hw7456F-etFgvhJpYOu0&type=img"]}},
+          cid: '9607',
+          crid: '335224',
+          iurl: 'http://cdn.testimage.net/1200x627.png',
+          adomain: ["example.com"] 
+        } 
+      ]
+    }
+  ])
+  .build();
 ```
 
 ## Validating objects
@@ -155,20 +155,20 @@ During the build process of the bid response, a validation process is performed 
     builderType: 'bidResponse'
   });
 
-	//Trying to build a bid request without a response id
-	try {	
-		bidResponseBuilder
-		.timestamp(moment.utc().format())
-		.build();
-	} catch(err) {
-		//err.message: "Validation failed"
-		//err.errors:
-		//'[{
-		//    dataPath: '.id',
-		//    keyword: 'required',
-		//    message: 'is a required property'
-	  	//}]'
-	}
+  //Trying to build a bid request without a response id
+  try { 
+    bidResponseBuilder
+    .timestamp(moment.utc().format())
+    .build();
+  } catch(err) {
+    //err.message: "Validation failed"
+    //err.errors:
+    //'[{
+    //    dataPath: '.id',
+    //    keyword: 'required',
+    //    message: 'is a required property'
+      //}]'
+  }
 ```
 
 ## Objects API
@@ -264,8 +264,8 @@ Replaces auction macros on a given string and returns the altered string.
 
 ```
 {
-	'${AUCTION_ID}': '1234',
-	'${AUCTION_PRICE}': 0.6
+  '${AUCTION_ID}': '1234',
+  '${AUCTION_PRICE}': 0.6
 }
 ```
 
