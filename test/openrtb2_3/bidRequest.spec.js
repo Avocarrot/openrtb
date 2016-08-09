@@ -26,64 +26,68 @@ describe("BidRequest tests", () =>  {
   describe("The BidRequestBuilder should", () =>  {
 
     it("build a valid bid request object", () =>  {
+      var requestObj = {
+        "ver": 1,
+        "layout": 6,
+        "assets": [
+          {
+            "id": 0,
+            "req": 1,
+            "title": {
+              "len": 25
+            }
+          },
+          {
+            "id": 1,
+            "req": 1,
+            "img": {
+              "type": 3,
+              "wmin": 100,
+              "hmin": 100
+            }
+          },
+          {
+            "id": 3,
+            "req": 0,
+            "data": {
+              "type": 2,
+              "len": 90
+            }
+          }
+        ]
+      }
+      
+      var requestStr = JSON.stringify(requestObj);
+
       const builder = new BidRequestBuilder();
+      
       const bidRequest = builder
       .timestamp(moment.utc().format())
       .id('1234')
       .at(2)
-      .imp([
-          {
-              "id":"1",
-              "native":{
-                "api": [ 3 ],
-                "battr": [ 13, 14 ],
-                "request": {
-                  "ver": 1,
-                  "layout": 6,
-                  "assets": [
-                    {
-                      "id": 0,
-                      "req": 1,
-                      "title": {
-                        "len": 25
-                      }
-                    },
-                    {
-                      "id": 1,
-                      "req": 1,
-                      "img": {
-                        "type": 3,
-                        "wmin": 100,
-                        "hmin": 100
-                      }
-                    },
-                    {
-                      "id": 3,
-                      "req": 0,
-                      "data": {
-                        "type": 2,
-                        "len": 90
-                      }
-                    }
-                  ]
-                }
-              },
-              "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
-              "bidfloor": 1.3,
-              "secure": 0,
-              "pmp": {
-                "private_auction": 1,
-                "deals": [
-                  { 
-                    "id": 'deal1', 
-                    "bidfloor": 5.5,
-                    "at": 3,
-                    "wseat": ["seat1"],
-                    "wadomain": ["advertiser.com"]
-                  }
-                ]
+      .imp([{
+          "id":"1",
+          "native":{
+            "api": [ 3 ],
+            "battr": [ 13, 14 ],
+            "request": requestStr
+          },
+          "tagid": "eb09ff2a287598302fd631493949169b0d17f815",
+          "bidfloor": 1.3,
+          "secure": 0,
+          "pmp": {
+            "private_auction": 1,
+            "deals": [
+              { 
+                "id": 'deal1', 
+                "bidfloor": 5.5,
+                "at": 3,
+                "wseat": ["seat1"],
+                "wadomain": ["advertiser.com"]
               }
+            ]
           }
+        }
       ])
       .app({
           "id":"55",
@@ -181,7 +185,9 @@ describe("BidRequest tests", () =>  {
       const native = bidRequest.imp[0].native;
       native.should.have.property('api', [3]);
       native.should.have.property('battr', [13,14]);
-      native.should.have.property('request', {
+      native.should.have.property('request')
+      var request = JSON.parse(native.request);
+      request.should.eql({
         assets: [
           { id: 0, req: 1, title: { len: 25 } },
           { id: 1, img: { hmin: 100, type: 3, wmin: 100 }, req: 1 },
@@ -298,14 +304,15 @@ describe("BidRequest tests", () =>  {
       });
     });
 
-    it("throw an error if a id was not provided", () =>  {
+    it("reject an invalid Bid Request", () => {
       const builder = new BidRequestBuilder();
+
       (() => {
         builder
         .timestamp(moment.utc().format())
+        .id('1')
         .build();
-      }).should.throw('BidRequest should have an id');
+      }).should.throw('Validation failed');
     });
-
   });
 });
