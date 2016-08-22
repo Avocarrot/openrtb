@@ -221,6 +221,7 @@ The table below lists the possible values for a bid response status.
 | 4 | HTTP Error |
 | 5 | Bid request failed |
 | 6 | No bid |
+| 7 | Generic parsing error |
 
 ##### `bidderName`
 
