@@ -1,0 +1,16 @@
+{
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true,
+      "mocha": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "indent": ["warn", 2],
+      "semi": "off",
+      "no-unused-vars": "warn"
+    }
+}
