@@ -118,7 +118,8 @@ Not supported but most objects for v2.3 should work for this one too.
   .user({
     "id":"55816b39711f9b5acf3b90e313ed29e51665623f",
     "yob": 1987,
-    "gender": "M"
+    "gender": "M",
+    "buyeruid": "73B0704E-86B6-4749-AC37-629AB247611D"
   })
   .bcat(["IAB10"])
   .badv(["xxx.com"])
